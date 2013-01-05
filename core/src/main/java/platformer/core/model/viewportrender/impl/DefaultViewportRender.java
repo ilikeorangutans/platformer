@@ -20,11 +20,11 @@ public class DefaultViewportRender implements ViewportRender {
 	}
 
 	@Override
-	public void render(Collection<Renderable> renderableObjects) {
+	public void render(Collection<Renderable> renderableObjects) {		
 		camera.update();
 		
 		for (Renderable renderable : renderableObjects) {
-			renderable.render();
+			renderable.render(graphics);
 		}
 	}
 }

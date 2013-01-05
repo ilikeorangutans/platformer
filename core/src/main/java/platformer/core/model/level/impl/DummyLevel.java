@@ -22,7 +22,7 @@ public class DummyLevel implements Level {
 
 		for (int i = 0; i < 20; i++) {
 			gameObjects.add(new LevelTile(new Vector3(i * 10, 0, 0),
-					new Rectangle()));
+					new Rectangle(0, 0, 10, 10)));
 		}
 
 	}
