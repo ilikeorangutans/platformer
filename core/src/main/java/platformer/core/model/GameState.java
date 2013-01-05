@@ -34,4 +34,13 @@ public interface GameState extends Iterable<GameObject> {
 
 	void initialize(Level level);
 
+	/**
+	 * Finds a {@link GameObject} based on its id. If no such game object
+	 * exists, null is returned.
+	 * 
+	 * @param id
+	 * @return
+	 */
+	GameObject findGameObjectById(String id);
+
 }

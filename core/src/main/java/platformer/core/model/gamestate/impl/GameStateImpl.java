@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import platformer.core.model.GameObject;
 import platformer.core.model.GameState;
@@ -25,8 +27,13 @@ public class GameStateImpl implements GameState {
 
 	private final List<GameObject> toRemove = new LinkedList<GameObject>();
 
+	private final Map<String, GameObject> objectsById = new TreeMap<String, GameObject>();
+
 	public void addGameObject(GameObject gameObject) {
 		gameObjects.add(gameObject);
+
+		if (gameObject.getId() != null)
+			objectsById.put(gameObject.getId(), gameObject);
 
 		if (gameObject instanceof Renderable) {
 			final Renderable renderable = (Renderable) gameObject;
@@ -74,5 +81,10 @@ public class GameStateImpl implements GameState {
 		for (GameObject go : level.getGameObjects()) {
 			addGameObject(go);
 		}
+	}
+
+	@Override
+	public GameObject findGameObjectById(String id) {
+		return objectsById.get(id);
 	}
 }

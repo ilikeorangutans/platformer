@@ -17,6 +17,13 @@ public interface GameObject {
 	void dispose();
 
 	/**
+	 * Returns a identifier for this game object.
+	 * 
+	 * @return
+	 */
+	String getId();
+
+	/**
 	 * Update the game object. Called for each iteration in the gameloop.
 	 */
 	void update();
