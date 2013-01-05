@@ -40,4 +40,10 @@ public class LevelTile implements GameObject, Positionable, Renderable {
 	public void update() {
 	}
 
+	@Override
+	public void render() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
