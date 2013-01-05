@@ -1,12 +1,15 @@
 package platformer.core;
 
+import java.util.Collection;
+
 import platformer.core.model.GameState;
 import platformer.core.model.InputHandler;
-import platformer.core.model.InputState;
 import platformer.core.model.Level;
 import platformer.core.model.Player;
 import platformer.core.model.Renderer;
+import platformer.core.model.command.Command;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -20,18 +23,19 @@ public class PlatformerGame implements ApplicationListener {
 	private Renderer renderer;
 	private Player player;
 	private GameState gameState;
+	
+	private final int logLevel = Application.LOG_DEBUG;
 
 	@Override
 	public void create() {
-		texture = new Texture(Gdx.files.internal("libgdx-logo.png"));
-		batch = new SpriteBatch();
-
+		Gdx.app.setLogLevel(logLevel);
+		
 		// Create/load level;
 		// Setup game state
 		// Setup input handler;
+		inputHandler = new DefaultInputHandler(Gdx.input);
 		// Setup renderer (with viewport)
 		// Create player
-
 	}
 
 	@Override
@@ -41,9 +45,9 @@ public class PlatformerGame implements ApplicationListener {
 	@Override
 	public void render() {
 
-		InputState inputState = inputHandler.readInput(Gdx.input);
-		gameState.update(inputState);
-		renderer.render();
+		Collection<Command> inputState = inputHandler.readInput();
+		//gameState.update(inputState);
+		//renderer.render();
 
 		// Gdx.gl.glClearColor(0, 0, 0, 0);
 		// Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);

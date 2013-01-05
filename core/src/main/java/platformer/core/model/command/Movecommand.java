@@ -15,9 +15,10 @@ public class Movecommand implements Command {
 	@Override
 	public void execute(GameState gameState) {
 		// Get player from gameState
-
+		// Player player = gameState.getPlayer();
+		
 		// Update player with new vector
-
+		// player.applyForces(vector3);
 	}
 
 }
