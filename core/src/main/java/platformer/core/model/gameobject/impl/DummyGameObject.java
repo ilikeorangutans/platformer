@@ -21,16 +21,6 @@ public class DummyGameObject implements GameObject, Movable {
 	}
 
 	@Override
-	public Vector3 getPosition() {
-		return position;
-	}
-
-	@Override
-	public Rectangle getBounds() {
-		return bounds;
-	}
-
-	@Override
 	public boolean canBeRemoved() {
 		return canBeRemoved;
 	}
@@ -41,10 +31,20 @@ public class DummyGameObject implements GameObject, Movable {
 	}
 
 	@Override
+	public Rectangle getBounds() {
+		return bounds;
+	}
+
+	@Override
+	public Vector3 getPosition() {
+		return position;
+	}
+
+	@Override
 	public void update() {
 
 		position.add(MathUtils.random(0.0F, 1.0F),
-				MathUtils.random(0.0F, 1.0F), MathUtils.random(0.0F, 1.0F));
+				MathUtils.random(-1.0F, 1.0F), 0);
 
 		Gdx.app.debug("DummyObject", "At " + position + " now.");
 

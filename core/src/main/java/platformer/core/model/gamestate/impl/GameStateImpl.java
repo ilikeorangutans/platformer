@@ -42,6 +42,7 @@ public class GameStateImpl implements GameState {
 			renderableObjects.remove(go);
 		}
 
+		toRemove.clear();
 	}
 
 	public Collection<Renderable> getRenderableObjects() {
