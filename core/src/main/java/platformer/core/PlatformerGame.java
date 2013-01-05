@@ -6,6 +6,7 @@ import platformer.core.model.InputState;
 import platformer.core.model.Level;
 import platformer.core.model.Player;
 import platformer.core.model.Renderer;
+import platformer.core.model.gamestate.impl.GameStateImpl;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
@@ -28,6 +29,9 @@ public class PlatformerGame implements ApplicationListener {
 
 		// Create/load level;
 		// Setup game state
+
+		gameState = new GameStateImpl();
+
 		// Setup input handler;
 		// Setup renderer (with viewport)
 		// Create player
@@ -44,6 +48,8 @@ public class PlatformerGame implements ApplicationListener {
 		InputState inputState = inputHandler.readInput(Gdx.input);
 		gameState.update(inputState);
 		renderer.render();
+
+		gameState.cleanUp();
 
 		// Gdx.gl.glClearColor(0, 0, 0, 0);
 		// Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
