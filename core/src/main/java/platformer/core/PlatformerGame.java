@@ -2,12 +2,14 @@ package platformer.core;
 
 import java.util.Collection;
 
+import platformer.core.model.Controllable;
 import platformer.core.model.GameState;
 import platformer.core.model.InputHandler;
 import platformer.core.model.Level;
 import platformer.core.model.Player;
 import platformer.core.model.Renderer;
 import platformer.core.model.command.Command;
+import platformer.core.model.gameobject.impl.DummyCharacter;
 import platformer.core.model.gamestate.impl.GameStateImpl;
 import platformer.core.model.level.impl.DummyLevel;
 
@@ -28,6 +30,7 @@ public class PlatformerGame implements ApplicationListener {
 	private GameState gameState;
 
 	private final int logLevel = Application.LOG_DEBUG;
+	private Controllable playerControlled;
 
 	@Override
 	public void create() {
@@ -37,8 +40,11 @@ public class PlatformerGame implements ApplicationListener {
 		level = new DummyLevel();
 		// Setup game state
 
+		playerControlled = new DummyCharacter();
+
 		gameState = new GameStateImpl();
 		gameState.initialize(level);
+		gameState.addGameObject(playerControlled);
 
 		// Setup input handler;
 		inputHandler = new DefaultInputHandler(Gdx.input);
