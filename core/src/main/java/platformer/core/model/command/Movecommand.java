@@ -1,24 +1,28 @@
 package platformer.core.model.command;
 
-import platformer.core.model.GameState;
+import platformer.core.model.GameObject;
+import platformer.core.model.Movable;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector3;
 
-public class Movecommand implements Command {
+public class Movecommand extends AbstractCommand implements Command {
 
 	private final Vector3 vector3;
 
-	public Movecommand(Vector3 vector3) {
+	public Movecommand(String targetUID, Vector3 vector3) {
+		super(targetUID);
 		this.vector3 = vector3;
 	}
 
 	@Override
-	public void execute(GameState gameState) {
-		// Get player from gameState
-		// Player player = gameState.getPlayer();
-		
-		// Update player with new vector
-		// player.applyForces(vector3);
+	public void execute(GameObject object) {
+		if (object instanceof Movable) {
+			Movable obj = (Movable) object; 
+			obj.applyVelocity(vector3);
+		} else {
+			Gdx.app.error("Moveable", "Can not apply to a non movable object!");
+		}
 	}
 
 }

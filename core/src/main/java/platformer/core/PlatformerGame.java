@@ -3,12 +3,14 @@ package platformer.core;
 import java.util.Collection;
 
 import platformer.core.model.Controllable;
+import platformer.core.model.Director;
 import platformer.core.model.GameState;
 import platformer.core.model.InputHandler;
 import platformer.core.model.Level;
 import platformer.core.model.Player;
 import platformer.core.model.ViewportRender;
 import platformer.core.model.command.Command;
+import platformer.core.model.director.impl.DefaultDirector;
 import platformer.core.model.gameobject.impl.DummyCharacter;
 import platformer.core.model.gamestate.impl.GameStateImpl;
 import platformer.core.model.inputhandler.impl.DefaultInputHandler;
@@ -28,6 +30,7 @@ public class PlatformerGame implements ApplicationListener {
 	SpriteBatch batch;
 	private Level level;
 	private InputHandler inputHandler;
+	private Director director;
 	private Player player;
 	private GameState gameState;
 	private ViewportRender renderer;
@@ -45,14 +48,11 @@ public class PlatformerGame implements ApplicationListener {
 		// Create/load level;
 		level = new DummyLevel();
 		
-		// Setup game state
-		playerControlled = new DummyCharacter();
-		gameState = new GameStateImpl();
-		gameState.initialize(level);
-		gameState.addGameObject(playerControlled);
-
 		// Setup input handler;
 		inputHandler = new DefaultInputHandler(Gdx.input);
+		
+		// Setup director;
+		director = new DefaultDirector();
 		
 		// Setup camera
 		camera = new OrthographicCamera();
@@ -60,8 +60,6 @@ public class PlatformerGame implements ApplicationListener {
 		
 		// Setup Renderer
 		renderer = new DefaultViewportRender(Gdx.graphics, camera);
-		
-		// Create player
 	}
 
 	@Override
@@ -75,15 +73,12 @@ public class PlatformerGame implements ApplicationListener {
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
 		Collection<Command> inputState = inputHandler.readInput();
-		gameState.update(inputState);
+		director.addCommand(inputState);
 
+		GameState gameState = director.getGameState();
+		
 		renderer.render(gameState.getRenderableObjects());
-
 		gameState.cleanUp();
-
-		// batch.begin();
-		// batch.draw(texture, 100, 100);
-		// batch.end();
 	}
 
 	@Override

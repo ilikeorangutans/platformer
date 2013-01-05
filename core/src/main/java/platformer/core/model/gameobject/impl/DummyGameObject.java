@@ -67,4 +67,16 @@ public class DummyGameObject implements GameObject, Movable, Renderable {
 		renderer.filledRect(position.x, position.y, bounds.width, bounds.height);
 		renderer.end();
 	}
+
+	@Override
+	public void applyVelocity(Vector3 vector) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

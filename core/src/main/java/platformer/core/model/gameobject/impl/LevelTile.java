@@ -53,5 +53,10 @@ public class LevelTile implements GameObject, Positionable, Renderable {
 		renderer.end();
 	}
 
+	@Override
+	public String getId() {
+		return null;
+	}
+
 
 }

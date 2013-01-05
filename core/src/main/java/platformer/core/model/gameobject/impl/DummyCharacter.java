@@ -41,4 +41,16 @@ public class DummyCharacter implements GameObject, Movable, Controllable {
 
 	}
 
+	@Override
+	public void applyVelocity(Vector3 vector) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

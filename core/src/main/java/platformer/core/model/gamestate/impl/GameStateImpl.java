@@ -61,11 +61,7 @@ public class GameStateImpl implements GameState {
 		return gameObjects.iterator();
 	}
 
-	@Override
-	public void update(Collection<Command> inputState) {
-
-		// TODO: handle input
-
+	public void update() {
 		for (GameObject go : gameObjects) {
 			go.update();
 

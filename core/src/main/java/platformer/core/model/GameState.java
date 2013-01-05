@@ -30,7 +30,7 @@ public interface GameState extends Iterable<GameObject> {
 	 * 
 	 * @param inputState
 	 */
-	void update(Collection<Command> inputState);
+	void update();
 
 	void initialize(Level level);
 
