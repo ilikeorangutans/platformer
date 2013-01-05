@@ -6,8 +6,6 @@ import platformer.core.model.Renderable;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
@@ -18,12 +16,10 @@ public class DummyGameObject implements GameObject, Movable, Renderable {
 	private Rectangle bounds;
 	private int counter;
 	private boolean canBeRemoved;
-	private ShapeRenderer renderer;
 
 	public DummyGameObject() {
 		position = new Vector3(10, 10, 10);
 		bounds = new Rectangle(10, 10, 10, 10);
-		renderer = new ShapeRenderer();
 	}
 
 	@Override
@@ -62,16 +58,12 @@ public class DummyGameObject implements GameObject, Movable, Renderable {
 
 	@Override
 	public void render(Graphics graphics) {
-		renderer.begin(ShapeType.FilledRectangle);
-		renderer.setColor(1, 0, 1, 1);
-		renderer.filledRect(position.x, position.y, bounds.width, bounds.height);
-		renderer.end();
 	}
 
 	@Override
 	public void applyVelocity(Vector3 vector) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override

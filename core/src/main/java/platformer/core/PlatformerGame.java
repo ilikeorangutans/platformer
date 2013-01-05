@@ -47,19 +47,20 @@ public class PlatformerGame implements ApplicationListener {
 
 		// Create/load level;
 		level = new DummyLevel();
-		
+
 		// Setup input handler;
 		inputHandler = new DefaultInputHandler(Gdx.input);
-		
+
 		// Setup director;
 		director = new DefaultDirector();
-		
+
 		// Setup camera
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 800, 480);
-		
+
 		// Setup Renderer
 		renderer = new DefaultViewportRender(Gdx.graphics, camera);
+
 	}
 
 	@Override
@@ -68,15 +69,15 @@ public class PlatformerGame implements ApplicationListener {
 
 	@Override
 	public void render() {
-		//Clear screen to black
+		// Clear screen to black
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		
+
 		Collection<Command> inputState = inputHandler.readInput();
 		director.addCommand(inputState);
 
 		GameState gameState = director.getGameState();
-		
+
 		renderer.render(gameState.getRenderableObjects());
 		gameState.cleanUp();
 	}

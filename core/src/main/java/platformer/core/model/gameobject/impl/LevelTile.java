@@ -58,5 +58,4 @@ public class LevelTile implements GameObject, Positionable, Renderable {
 		return null;
 	}
 
-
 }
