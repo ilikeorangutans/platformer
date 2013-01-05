@@ -7,9 +7,9 @@ import java.util.List;
 
 import platformer.core.model.GameObject;
 import platformer.core.model.GameState;
-import platformer.core.model.InputState;
 import platformer.core.model.Level;
 import platformer.core.model.Renderable;
+import platformer.core.model.command.Command;
 
 public class GameStateImpl implements GameState {
 
@@ -54,7 +54,7 @@ public class GameStateImpl implements GameState {
 	}
 
 	@Override
-	public void update(InputState inputState) {
+	public void update(Collection<Command> inputState) {
 
 		// TODO: handle input
 
@@ -70,6 +70,8 @@ public class GameStateImpl implements GameState {
 
 	@Override
 	public void initialize(Level level) {
-		level.getGameObjects();
+		for (GameObject go : level.getGameObjects()) {
+			addGameObject(go);
+		}
 	}
 }
