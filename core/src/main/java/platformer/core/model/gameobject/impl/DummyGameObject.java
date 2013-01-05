@@ -2,13 +2,14 @@ package platformer.core.model.gameobject.impl;
 
 import platformer.core.model.GameObject;
 import platformer.core.model.Movable;
+import platformer.core.model.Renderable;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 
-public class DummyGameObject implements GameObject, Movable {
+public class DummyGameObject implements GameObject, Movable, Renderable {
 
 	private Vector3 position;
 	private Rectangle bounds;
@@ -52,5 +53,9 @@ public class DummyGameObject implements GameObject, Movable {
 
 		if (counter > 100)
 			canBeRemoved = true;
+	}
+
+	public void render() {
+		// TODO Auto-generated method stub
 	}
 }
