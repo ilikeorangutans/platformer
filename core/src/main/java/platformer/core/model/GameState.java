@@ -2,6 +2,8 @@ package platformer.core.model;
 
 import java.util.Collection;
 
+import platformer.core.renderer.Renderable;
+
 import com.badlogic.gdx.physics.box2d.World;
 
 public interface GameState extends Iterable<GameObject> {

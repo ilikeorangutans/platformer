@@ -2,21 +2,19 @@ package platformer.core.model.gameobject.impl;
 
 import platformer.core.model.GameObject;
 import platformer.core.model.Positionable;
-import platformer.core.model.Renderable;
 import platformer.core.model.Simulatable;
-
-import com.badlogic.gdx.Graphics;
+import platformer.core.renderer.Renderable;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
-public class LevelTile implements GameObject, Positionable, Renderable, Simulatable {
+public class LevelTile implements GameObject, Positionable, Renderable,
+		Simulatable {
 
 	private final Vector3 position;
 	private final Rectangle bounds;
@@ -26,7 +24,6 @@ public class LevelTile implements GameObject, Positionable, Renderable, Simulata
 	public LevelTile(Vector3 position, Rectangle bounds) {
 		this.position = position;
 		this.bounds = bounds;
-		renderer = new ShapeRenderer();
 	}
 
 	@Override
@@ -53,14 +50,6 @@ public class LevelTile implements GameObject, Positionable, Renderable, Simulata
 	}
 
 	@Override
-	public void render(Graphics graphics) {
-		renderer.begin(ShapeType.FilledRectangle);
-		renderer.setColor(1, 1, 1, 1);
-		renderer.filledRect(position.x, position.y, bounds.width, bounds.height);
-		renderer.end();
-	}
-
-	@Override
 	public String getId() {
 		return null;
 	}
@@ -70,13 +59,13 @@ public class LevelTile implements GameObject, Positionable, Renderable, Simulata
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyType.StaticBody;
 		bodyDef.position.set(position.x, position.y);
-		
+
 		body = world.createBody(bodyDef);
 
 		PolygonShape tileShape = new PolygonShape();
 		tileShape.setAsBox(bounds.width / 2, bounds.height / 2);
 		body.createFixture(tileShape, 70);
-		
+
 		return body;
 	}
 

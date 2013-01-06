@@ -1,6 +1,5 @@
 package platformer.core.renderer;
 
-import platformer.core.model.Renderable;
 
 /**
  * Produces {@link Renderer} objects.

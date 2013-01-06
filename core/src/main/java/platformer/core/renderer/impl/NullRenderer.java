@@ -1,6 +1,6 @@
 package platformer.core.renderer.impl;
 
-import platformer.core.model.Renderable;
+import platformer.core.renderer.Renderable;
 import platformer.core.renderer.Renderer;
 
 /**

@@ -7,14 +7,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.physics.box2d.World;
-
 import platformer.core.model.GameObject;
 import platformer.core.model.GameState;
 import platformer.core.model.Level;
-import platformer.core.model.Renderable;
 import platformer.core.model.Simulatable;
+import platformer.core.renderer.Renderable;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.physics.box2d.World;
 
 public class GameStateImpl implements GameState {
 
