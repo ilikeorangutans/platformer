@@ -9,8 +9,8 @@ public class PlatformerGameDesktop {
 	public static void main(String[] args) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.useGL20 = true;
-		config.width = 1280;
-		config.height = 1024;
+		config.width = 1024;
+		config.height = 768;
 		new LwjglApplication(new PlatformerGame(), config);
 	}
 }
