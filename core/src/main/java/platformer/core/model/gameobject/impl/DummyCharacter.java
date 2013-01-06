@@ -83,6 +83,7 @@ public class DummyCharacter implements GameObject, Movable, Controllable,
 		body = world.createBody(bodyDef);
 		body.setFixedRotation(true);
 		body.setLinearDamping(0.4f);
+		body.setBullet(true);
 
 		CircleShape circShape = new CircleShape();
 		circShape.setRadius(bounds.width / 2);

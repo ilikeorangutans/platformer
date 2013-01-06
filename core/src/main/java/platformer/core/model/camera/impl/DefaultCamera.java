@@ -30,6 +30,11 @@ public class DefaultCamera extends OrthographicCamera implements Camera {
 	}
 
 	private void followTarget() {
+		/**	
+		 * TODO:
+		 * Make Y platform locked to the current platform!
+		 */
+		
 		if (target != null) {
 			Vector3 targetPos = target.getPosition();
 			
