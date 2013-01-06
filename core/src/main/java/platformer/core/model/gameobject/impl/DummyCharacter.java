@@ -3,13 +3,13 @@ package platformer.core.model.gameobject.impl;
 import platformer.core.model.Controllable;
 import platformer.core.model.GameObject;
 import platformer.core.model.Movable;
-import platformer.core.model.Renderable;
+import platformer.core.renderer.Renderable;
 
-import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 
-public class DummyCharacter implements GameObject, Movable, Controllable, Renderable {
+public class DummyCharacter implements GameObject, Movable, Controllable,
+		Renderable {
 
 	private Vector3 position;
 	private boolean canBeRemoved;
@@ -56,9 +56,9 @@ public class DummyCharacter implements GameObject, Movable, Controllable, Render
 	}
 
 	@Override
-	@Deprecated
-	public void render(Graphics graphics) {
+	public String getTextureName() {
 		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -67,4 +67,9 @@ public class DummyGameObject implements GameObject, Movable, Renderable {
 		return null;
 	}
 
+	@Override
+	public String getTextureName() {
+		return null;
+	}
+
 }

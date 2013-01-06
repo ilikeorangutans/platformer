@@ -20,6 +20,7 @@ import platformer.core.renderer.impl.dummy.DummyRendererFactory;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -41,9 +42,13 @@ public class PlatformerGame implements ApplicationListener {
 	private final int SCREEN_HEIGHT = 768;
 	private Controllable playerControlled;
 	private RendererFactory rendererFactory;
+	private AssetManager assetManager;
 
 	@Override
 	public void create() {
+		assetManager = new AssetManager();
+		assetManager.load("../assets/grass.png", Texture.class);
+
 		Gdx.app.setLogLevel(LOG_LEVEL);
 
 		rendererFactory = new DummyRendererFactory();
@@ -73,6 +78,9 @@ public class PlatformerGame implements ApplicationListener {
 
 	@Override
 	public void render() {
+		if (!assetManager.update()) {
+			Gdx.app.debug("asset loading", "loading assets");
+		}
 		// Clear screen to black
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);

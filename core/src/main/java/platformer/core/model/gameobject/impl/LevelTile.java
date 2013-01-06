@@ -45,4 +45,9 @@ public class LevelTile implements GameObject, Positionable, Renderable {
 		return null;
 	}
 
+	@Override
+	public String getTextureName() {
+		return "grass";
+	}
+
 }
