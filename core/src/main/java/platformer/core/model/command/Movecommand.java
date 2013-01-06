@@ -6,7 +6,7 @@ import platformer.core.model.Movable;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector3;
 
-public class Movecommand extends AbstractCommand implements Command {
+public class Movecommand extends AbstractCommand {
 
 	private final Vector3 vector3;
 
@@ -15,8 +15,7 @@ public class Movecommand extends AbstractCommand implements Command {
 		this.vector3 = vector3;
 	}
 
-	@Override
-	public void execute(GameObject object) {
+	public void execute(Object object) {
 		if (object instanceof Movable) {
 			Movable obj = (Movable) object; 
 			obj.applyVelocity(vector3);

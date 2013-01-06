@@ -8,10 +8,12 @@ import java.util.Stack;
 
 import platformer.core.model.InputHandler;
 import platformer.core.model.command.Command;
+import platformer.core.model.command.CreateCommand;
 import platformer.core.model.command.Movecommand;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector3;
 
 public class DefaultInputHandler implements InputHandler {
@@ -47,18 +49,20 @@ public class DefaultInputHandler implements InputHandler {
 			currentState.add(new Movecommand("player", new Vector3(1, 0, 0)));
 		}
 
-		// Move Up
+		// Jump
 		if (input.isKeyPressed(Input.Keys.W)
 				|| input.isKeyPressed(Input.Keys.UP)) {
 			Gdx.app.debug("DefaultInputHandler", "Up key pressed");
 			currentState.add(new Movecommand("player", new Vector3(0, 1, 0)));
 		}
 
-		// Move Down
-		if (input.isKeyPressed(Input.Keys.S)
-				|| input.isKeyPressed(Input.Keys.DOWN)) {
-			Gdx.app.debug("DefaultInputHandler", "Down key pressed");
-			currentState.add(new Movecommand("player", new Vector3(0, -1, 0)));
+		//TODO:
+		//This works but the coordinates are messed up
+		//Need camera object in order to camera.unproject(touchPos) 
+		//To convert into onScreen coords.
+		if (input.isTouched()) {
+			Gdx.app.debug("DefaultInputHandler", "Mouse button pressed");
+			currentState.add(new CreateCommand("gamestate", new Vector3(input.getX(), input.getY(), 0)));
 		}
 
 		return currentState;

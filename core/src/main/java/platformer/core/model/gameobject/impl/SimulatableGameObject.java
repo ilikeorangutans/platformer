@@ -25,8 +25,12 @@ public class SimulatableGameObject implements GameObject, Movable, Renderable,
 	private Fixture fixture;
 
 	public SimulatableGameObject() {
-		position = new Vector3(100, 200, 0);
-		bounds = new Rectangle(10, 10, 10, 10);
+		this(new Vector3(100, 200, 0));
+	}
+
+	public SimulatableGameObject(Vector3 position) {
+		this.position = position;
+		this.bounds = new Rectangle(64, 64, 64, 64);
 	}
 
 	@Override
@@ -80,7 +84,7 @@ public class SimulatableGameObject implements GameObject, Movable, Renderable,
 		CircleShape circleShape = new CircleShape();
 		circleShape.setRadius(bounds.width / 2);
 
-		fixture = body.createFixture(circleShape, 70);
+		fixture = body.createFixture(circleShape, 30);
 		fixture.setRestitution(1);
 
 		return body;

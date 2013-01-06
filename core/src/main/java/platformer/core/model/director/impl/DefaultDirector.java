@@ -32,12 +32,16 @@ public class DefaultDirector implements Director {
 	}
 	
 	public void update() {
-		GameObject object;
+		Object object;
 		
 		//apply commands to target objects
 		for (Command command : commandList) {
-			 object = gameState.findGameObjectById(command.getTargetUID());
-			 command.execute(object);
+			if("gamestate".equals(command.getTargetUID())) {
+				object = gameState;	
+			} else {
+				object = gameState.findGameObjectById(command.getTargetUID());
+			}
+			command.execute(object);
 		}
 		
 		//execute and wipe

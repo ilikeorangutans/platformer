@@ -6,7 +6,7 @@ import platformer.core.model.GameState;
 public interface Command {
 	
 	String getTargetUID();
-	
-	void execute(GameObject object);
+
+	void execute(Object object);
 
 }

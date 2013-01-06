@@ -8,7 +8,9 @@ import platformer.core.model.GameState;
 import platformer.core.model.InputHandler;
 import platformer.core.model.Level;
 import platformer.core.model.Player;
+import platformer.core.model.Positionable;
 import platformer.core.model.ViewportRender;
+import platformer.core.model.camera.impl.DefaultCamera;
 import platformer.core.model.command.Command;
 import platformer.core.model.director.impl.DefaultDirector;
 import platformer.core.model.inputhandler.impl.DefaultInputHandler;
@@ -36,7 +38,7 @@ public class PlatformerGame implements ApplicationListener {
 	private Player player;
 	private GameState gameState;
 	private ViewportRender renderer;
-	private OrthographicCamera camera;
+	private DefaultCamera camera;
 	private Box2DDebugRenderer debugRenderer;
 
 	private final int LOG_LEVEL = Application.LOG_DEBUG;
@@ -65,8 +67,9 @@ public class PlatformerGame implements ApplicationListener {
 		director = new DefaultDirector();
 
 		// Setup camera
-		camera = new OrthographicCamera();
-		camera.setToOrtho(false, 800, 480);
+		camera = new DefaultCamera();
+		camera.setToOrtho(false, 800, 600);
+		camera.setTarget((Positionable) director.getGameState().findGameObjectById("player"));
 
 		// Setup Renderer
 		renderer = new DefaultViewportRender(rendererFactory, Gdx.graphics,
@@ -96,7 +99,7 @@ public class PlatformerGame implements ApplicationListener {
 		GameState gameState = director.getGameState();
 
 		renderer.render(gameState.getRenderableObjects());
-		//debugRenderer.render(gameState.getWorld(), camera.combined);
+		debugRenderer.render(gameState.getWorld(), camera.combined);
 		
 		gameState.cleanUp();
 	}
