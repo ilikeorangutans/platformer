@@ -12,7 +12,7 @@ import com.badlogic.gdx.Gdx;
 import platformer.core.model.GameObject;
 import platformer.core.model.GameState;
 import platformer.core.model.Level;
-import platformer.core.model.Renderable;
+import platformer.core.renderer.Renderable;
 
 public class GameStateImpl implements GameState {
 

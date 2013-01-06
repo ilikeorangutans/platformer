@@ -2,8 +2,8 @@ package platformer.core.model.viewportrender.impl;
 
 import java.util.Collection;
 
-import platformer.core.model.Renderable;
 import platformer.core.model.ViewportRender;
+import platformer.core.renderer.Renderable;
 import platformer.core.renderer.Renderer;
 import platformer.core.renderer.RendererFactory;
 

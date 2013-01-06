@@ -2,10 +2,9 @@ package platformer.core.model.gameobject.impl;
 
 import platformer.core.model.GameObject;
 import platformer.core.model.Movable;
-import platformer.core.model.Renderable;
+import platformer.core.renderer.Renderable;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
@@ -57,10 +56,6 @@ public class DummyGameObject implements GameObject, Movable, Renderable {
 	}
 
 	@Override
-	public void render(Graphics graphics) {
-	}
-
-	@Override
 	public void applyVelocity(Vector3 vector) {
 		// TODO Auto-generated method stub
 
@@ -71,4 +66,5 @@ public class DummyGameObject implements GameObject, Movable, Renderable {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 }

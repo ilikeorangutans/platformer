@@ -3,6 +3,7 @@ package platformer.core.model;
 import java.util.Collection;
 
 import platformer.core.model.command.Command;
+import platformer.core.renderer.Renderable;
 
 public interface GameState extends Iterable<GameObject> {
 

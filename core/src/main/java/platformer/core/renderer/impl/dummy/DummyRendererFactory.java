@@ -1,7 +1,7 @@
 package platformer.core.renderer.impl.dummy;
 
-import platformer.core.model.Renderable;
 import platformer.core.model.gameobject.impl.DummyGameObject;
+import platformer.core.renderer.Renderable;
 import platformer.core.renderer.Renderer;
 import platformer.core.renderer.RendererFactory;
 
