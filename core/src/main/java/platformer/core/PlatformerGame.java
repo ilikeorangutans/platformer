@@ -28,6 +28,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.utils.Array;
 
 public class PlatformerGame implements ApplicationListener {
 	Texture texture;
@@ -60,9 +61,6 @@ public class PlatformerGame implements ApplicationListener {
 		// Create/load level;
 		level = new DummyLevel();
 
-		// Setup input handler;
-		inputHandler = new DefaultInputHandler(Gdx.input);
-
 		// Setup director;
 		director = new DefaultDirector();
 
@@ -70,6 +68,10 @@ public class PlatformerGame implements ApplicationListener {
 		camera = new DefaultCamera();
 		camera.setToOrtho(false, 800, 600);
 		camera.setTarget((Positionable) director.getGameState().findGameObjectById("player"));
+
+		// Setup input handler;
+		inputHandler = new DefaultInputHandler(Gdx.input, camera);
+		Gdx.input.setInputProcessor(inputHandler);
 
 		// Setup Renderer
 		renderer = new DefaultViewportRender(rendererFactory, Gdx.graphics,
@@ -92,7 +94,7 @@ public class PlatformerGame implements ApplicationListener {
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
-		Collection<Command> inputState = inputHandler.readInput();
+		Array<Command> inputState = inputHandler.readInput();
 		director.addCommand(inputState);
 		director.update();
 

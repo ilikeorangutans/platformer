@@ -6,11 +6,11 @@ import platformer.core.model.Movable;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector3;
 
-public class Movecommand extends AbstractCommand {
+public class MoveCommand extends AbstractCommand {
 
 	private final Vector3 vector3;
 
-	public Movecommand(String targetUID, Vector3 vector3) {
+	public MoveCommand(String targetUID, Vector3 vector3) {
 		super(targetUID);
 		this.vector3 = vector3;
 	}

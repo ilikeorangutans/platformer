@@ -5,6 +5,7 @@ import platformer.core.model.Movable;
 import platformer.core.model.Simulatable;
 import platformer.core.renderer.Renderable;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -72,7 +73,7 @@ public class SimulatableGameObject implements GameObject, Movable, Renderable,
 	}
 
 	@Override
-	public Body initialize(World world) {
+	public Body initialize(World world) {		
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyType.DynamicBody;
 		bodyDef.position.set(position.x, position.y);

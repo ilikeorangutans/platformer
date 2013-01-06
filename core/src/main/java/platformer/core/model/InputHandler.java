@@ -1,13 +1,12 @@
 package platformer.core.model;
 
-import java.util.Collection;
-
 import platformer.core.model.command.Command;
 
-import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.utils.Array;
 
-public interface InputHandler {
+public interface InputHandler extends InputProcessor {
 		
-	Collection<Command> readInput();
+	Array<Command> readInput();
 
 }

@@ -1,12 +1,6 @@
 package platformer.core.model.director.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
-import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
-
 import platformer.core.model.Director;
-import platformer.core.model.GameObject;
 import platformer.core.model.GameState;
 import platformer.core.model.Level;
 import platformer.core.model.command.Command;
@@ -15,9 +9,11 @@ import platformer.core.model.gameobject.impl.SimulatableGameObject;
 import platformer.core.model.gamestate.impl.GameStateImpl;
 import platformer.core.model.level.impl.DummyLevel;
 
+import com.badlogic.gdx.utils.Array;
+
 public class DefaultDirector implements Director {
 	final private GameState gameState;
-	private Collection<Command> commandList = new ArrayList<Command>();
+	private Array<Command> commandList = new Array<Command>();
 	
 	public DefaultDirector(){
 		// Setup game state
@@ -55,7 +51,7 @@ public class DefaultDirector implements Director {
 	}
 
 	@Override
-	public void addCommand(Collection<Command> commands) {
+	public void addCommand(Array<Command> commands) {
 		commandList.addAll(commands);
 	}
 
