@@ -3,17 +3,21 @@ package platformer.core.model.gameobject.impl;
 import platformer.core.model.Controllable;
 import platformer.core.model.GameObject;
 import platformer.core.model.Movable;
+import platformer.core.model.Renderable;
 
+import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 
-public class DummyCharacter implements GameObject, Movable, Controllable {
+public class DummyCharacter implements GameObject, Movable, Controllable, Renderable {
 
 	private Vector3 position;
 	private boolean canBeRemoved;
+	private Rectangle bounds;
 
 	public DummyCharacter() {
-		position = new Vector3(10, 10, 0);
+		position = new Vector3(100, 100, 0);
+		bounds = new Rectangle(10, 10, 10, 10);
 	}
 
 	@Override
@@ -23,7 +27,7 @@ public class DummyCharacter implements GameObject, Movable, Controllable {
 
 	@Override
 	public Rectangle getBounds() {
-		return null;
+		return bounds;
 	}
 
 	@Override
@@ -43,14 +47,18 @@ public class DummyCharacter implements GameObject, Movable, Controllable {
 
 	@Override
 	public void applyVelocity(Vector3 vector) {
-		// TODO Auto-generated method stub
-		
+		position.add(vector);
 	}
 
 	@Override
 	public String getId() {
+		return "player";
+	}
+
+	@Override
+	@Deprecated
+	public void render(Graphics graphics) {
 		// TODO Auto-generated method stub
-		return null;
 	}
 
 }
