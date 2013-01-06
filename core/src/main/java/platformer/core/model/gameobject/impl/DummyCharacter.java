@@ -3,8 +3,8 @@ package platformer.core.model.gameobject.impl;
 import platformer.core.model.Controllable;
 import platformer.core.model.GameObject;
 import platformer.core.model.Movable;
-import platformer.core.model.Renderable;
 import platformer.core.model.Simulatable;
+import platformer.core.renderer.Renderable;
 
 import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.math.Rectangle;
