@@ -10,6 +10,6 @@ import platformer.core.model.Renderable;
  */
 public interface RendererFactory {
 
-	Renderer findRenderer(Class<Renderable> clazz);
+	Renderer findRenderer(Class<? extends Renderable> clazz);
 
 }

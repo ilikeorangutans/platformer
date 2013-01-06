@@ -4,27 +4,34 @@ import java.util.Collection;
 
 import platformer.core.model.Renderable;
 import platformer.core.model.ViewportRender;
+import platformer.core.renderer.Renderer;
+import platformer.core.renderer.RendererFactory;
 
 import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector3;
 
 public class DefaultViewportRender implements ViewportRender {
-	Graphics graphics;
-	Camera camera;
-	
-	public DefaultViewportRender(Graphics graphics, Camera camera) {
+	private final Graphics graphics;
+	private final Camera camera;
+	private final RendererFactory rendererFactory;
+
+	public DefaultViewportRender(RendererFactory rendererFactory,
+			Graphics graphics, Camera camera) {
+		this.rendererFactory = rendererFactory;
 		this.graphics = graphics;
 		this.camera = camera;
 	}
 
 	@Override
-	public void render(Collection<Renderable> renderableObjects) {		
+	public void render(Collection<Renderable> renderableObjects) {
 		camera.update();
-		
+
 		for (Renderable renderable : renderableObjects) {
-			renderable.render(graphics);
+
+			final Renderer renderer = rendererFactory.findRenderer(renderable
+					.getClass());
+
+			renderer.render(renderable);
 		}
 	}
 }

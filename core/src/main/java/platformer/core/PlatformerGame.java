@@ -11,11 +11,11 @@ import platformer.core.model.Player;
 import platformer.core.model.ViewportRender;
 import platformer.core.model.command.Command;
 import platformer.core.model.director.impl.DefaultDirector;
-import platformer.core.model.gameobject.impl.DummyCharacter;
-import platformer.core.model.gamestate.impl.GameStateImpl;
 import platformer.core.model.inputhandler.impl.DefaultInputHandler;
 import platformer.core.model.level.impl.DummyLevel;
 import platformer.core.model.viewportrender.impl.DefaultViewportRender;
+import platformer.core.renderer.RendererFactory;
+import platformer.core.renderer.impl.dummy.DummyRendererFactory;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationListener;
@@ -40,10 +40,13 @@ public class PlatformerGame implements ApplicationListener {
 	private final int SCREEN_WIDTH = 1024;
 	private final int SCREEN_HEIGHT = 768;
 	private Controllable playerControlled;
+	private RendererFactory rendererFactory;
 
 	@Override
 	public void create() {
 		Gdx.app.setLogLevel(LOG_LEVEL);
+
+		rendererFactory = new DummyRendererFactory();
 
 		// Create/load level;
 		level = new DummyLevel();
@@ -59,7 +62,8 @@ public class PlatformerGame implements ApplicationListener {
 		camera.setToOrtho(false, 800, 480);
 
 		// Setup Renderer
-		renderer = new DefaultViewportRender(Gdx.graphics, camera);
+		renderer = new DefaultViewportRender(rendererFactory, Gdx.graphics,
+				camera);
 
 	}
 
