@@ -25,6 +25,7 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 
 public class PlatformerGame implements ApplicationListener {
 	Texture texture;
@@ -36,6 +37,7 @@ public class PlatformerGame implements ApplicationListener {
 	private GameState gameState;
 	private ViewportRender renderer;
 	private OrthographicCamera camera;
+	private Box2DDebugRenderer debugRenderer;
 
 	private final int LOG_LEVEL = Application.LOG_DEBUG;
 	private final int SCREEN_WIDTH = 1024;
@@ -70,6 +72,7 @@ public class PlatformerGame implements ApplicationListener {
 		renderer = new DefaultViewportRender(rendererFactory, Gdx.graphics,
 				camera);
 
+		debugRenderer = new Box2DDebugRenderer();
 	}
 
 	@Override
@@ -92,6 +95,8 @@ public class PlatformerGame implements ApplicationListener {
 		GameState gameState = director.getGameState();
 
 		renderer.render(gameState.getRenderableObjects());
+		debugRenderer.render(gameState.getWorld(), camera.combined);
+		
 		gameState.cleanUp();
 	}
 

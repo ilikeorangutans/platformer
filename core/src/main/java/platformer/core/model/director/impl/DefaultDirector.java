@@ -11,6 +11,7 @@ import platformer.core.model.GameState;
 import platformer.core.model.Level;
 import platformer.core.model.command.Command;
 import platformer.core.model.gameobject.impl.DummyCharacter;
+import platformer.core.model.gameobject.impl.SimulatableGameObject;
 import platformer.core.model.gamestate.impl.GameStateImpl;
 import platformer.core.model.level.impl.DummyLevel;
 
@@ -21,11 +22,13 @@ public class DefaultDirector implements Director {
 	public DefaultDirector(){
 		// Setup game state
 		DummyCharacter playerControlled = new DummyCharacter();
+		SimulatableGameObject objectSim = new SimulatableGameObject();
 		Level level = new DummyLevel();
 		gameState = new GameStateImpl();
 		
 		gameState.initialize(level);
 		gameState.addGameObject(playerControlled);
+		gameState.addGameObject(objectSim);
 	}
 	
 	public void update() {

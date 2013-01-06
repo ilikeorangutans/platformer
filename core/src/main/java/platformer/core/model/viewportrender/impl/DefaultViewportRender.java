@@ -35,5 +35,6 @@ public class DefaultViewportRender implements ViewportRender {
 
 			renderer.render(renderable);
 		}
+		
 	}
 }
