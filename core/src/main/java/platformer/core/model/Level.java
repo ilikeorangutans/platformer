@@ -2,6 +2,9 @@ package platformer.core.model;
 
 import java.util.Collection;
 
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
+
 public interface Level {
 
 	/**
@@ -10,5 +13,7 @@ public interface Level {
 	 * @return
 	 */
 	Collection<GameObject> getGameObjects();
+	
+	Vector2 getGravity();
 
 }

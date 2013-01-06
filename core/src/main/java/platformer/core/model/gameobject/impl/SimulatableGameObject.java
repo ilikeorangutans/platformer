@@ -1,6 +1,5 @@
 package platformer.core.model.gameobject.impl;
 
-import platformer.core.model.Controllable;
 import platformer.core.model.GameObject;
 import platformer.core.model.Movable;
 import platformer.core.model.Renderable;
@@ -17,16 +16,16 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
-public class DummyCharacter implements GameObject, Movable, Controllable, Renderable, Simulatable {
-
+public class SimulatableGameObject implements GameObject, Movable, Renderable,
+		Simulatable {
 	private Vector3 position;
 	private boolean canBeRemoved;
 	private Rectangle bounds;
 	private Body body;
 	private Fixture fixture;
 
-	public DummyCharacter() {
-		position = new Vector3(100, 100, 0);
+	public SimulatableGameObject() {
+		position = new Vector3(500, 500, 0);
 		bounds = new Rectangle(10, 10, 10, 10);
 	}
 
@@ -41,13 +40,24 @@ public class DummyCharacter implements GameObject, Movable, Controllable, Render
 	}
 
 	@Override
+	public void applyVelocity(Vector3 vector) {
+
+	}
+
+	@Override
 	public boolean canBeRemoved() {
 		return canBeRemoved;
 	}
 
 	@Override
 	public void dispose() {
+		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public String getId() {
+		return null;
 	}
 
 	@Override
@@ -58,19 +68,10 @@ public class DummyCharacter implements GameObject, Movable, Controllable, Render
 	}
 
 	@Override
-	public void applyVelocity(Vector3 vector) {
-		body.applyForce(vector.x * 10000, vector.y * 10000, 0, 0);
-	}
-
-	@Override
-	public String getId() {
-		return "player";
-	}
-
-	@Override
 	@Deprecated
 	public void render(Graphics graphics) {
 		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
@@ -81,11 +82,13 @@ public class DummyCharacter implements GameObject, Movable, Controllable, Render
 		
 		body = world.createBody(bodyDef);
 		
+		body.setLinearDamping(1f);
+		
 		PolygonShape squareShape = new PolygonShape();
 		squareShape.setAsBox(bounds.width / 2, bounds.height / 2);
 				
-		fixture = body.createFixture(squareShape, 10);
-		fixture.setRestitution(0);
+		fixture = body.createFixture(squareShape, 70);
+		fixture.setRestitution(1);
 		
 		return body;
 	}

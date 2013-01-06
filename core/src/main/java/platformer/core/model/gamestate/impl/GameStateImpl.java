@@ -8,11 +8,13 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.physics.box2d.World;
 
 import platformer.core.model.GameObject;
 import platformer.core.model.GameState;
 import platformer.core.model.Level;
 import platformer.core.model.Renderable;
+import platformer.core.model.Simulatable;
 
 public class GameStateImpl implements GameState {
 
@@ -29,7 +31,9 @@ public class GameStateImpl implements GameState {
 	private final List<GameObject> toRemove = new LinkedList<GameObject>();
 
 	private final Map<String, GameObject> objectsById = new TreeMap<String, GameObject>();
-
+	
+	private World world;
+	
 	public void addGameObject(GameObject gameObject) {
 		gameObjects.add(gameObject);
 
@@ -39,6 +43,11 @@ public class GameStateImpl implements GameState {
 		if (gameObject instanceof Renderable) {
 			final Renderable renderable = (Renderable) gameObject;
 			renderableObjects.add(renderable);
+		}
+		
+		if (gameObject instanceof Simulatable) {
+			final Simulatable simulatable = (Simulatable) gameObject;
+			simulatable.initialize(world);
 		}
 	}
 
@@ -70,17 +79,28 @@ public class GameStateImpl implements GameState {
 				toRemove.add(go);
 			}
 		}
+		
+		world.step(Gdx.graphics.getDeltaTime(), 6, 2);
 	}
 
 	@Override
 	public void initialize(Level level) {
+
+		world = new World(level.getGravity(), true);
+		
 		for (GameObject go : level.getGameObjects()) {
 			addGameObject(go);
 		}
+		
 	}
 
 	@Override
 	public GameObject findGameObjectById(String id) {
 		return objectsById.get(id);
+	}
+
+	@Override
+	public World getWorld() {
+		return world;
 	}
 }
