@@ -68,13 +68,6 @@ public class SimulatableGameObject implements GameObject, Movable, Renderable,
 	}
 
 	@Override
-	@Deprecated
-	public void render(Graphics graphics) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public Body initialize(World world) {
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyType.DynamicBody;
