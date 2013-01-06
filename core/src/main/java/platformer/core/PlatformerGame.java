@@ -73,6 +73,7 @@ public class PlatformerGame implements ApplicationListener {
 				camera);
 
 		debugRenderer = new Box2DDebugRenderer();
+		debugRenderer.setDrawVelocities(true);
 	}
 
 	@Override
@@ -95,7 +96,7 @@ public class PlatformerGame implements ApplicationListener {
 		GameState gameState = director.getGameState();
 
 		renderer.render(gameState.getRenderableObjects());
-		debugRenderer.render(gameState.getWorld(), camera.combined);
+		//debugRenderer.render(gameState.getWorld(), camera.combined);
 		
 		gameState.cleanUp();
 	}

@@ -11,6 +11,8 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
@@ -21,6 +23,7 @@ public class LevelTile implements GameObject, Positionable, Renderable,
 	private final Rectangle bounds;
 	private ShapeRenderer renderer;
 	private Body body;
+	private Fixture fixture;
 
 	public LevelTile(Vector3 position, Rectangle bounds) {
 		this.position = position;
@@ -67,9 +70,12 @@ public class LevelTile implements GameObject, Positionable, Renderable,
 
 		body = world.createBody(bodyDef);
 
-		PolygonShape tileShape = new PolygonShape();
-		tileShape.setAsBox(bounds.width / 2, bounds.height / 2);
-		body.createFixture(tileShape, 70);
+		CircleShape tileShape = new CircleShape();
+		tileShape.setRadius(bounds.width / 2);
+		
+		fixture = body.createFixture(tileShape, 70);
+		fixture.setFriction(5f);
+		fixture.setRestitution(1f);
 
 		return body;
 	}

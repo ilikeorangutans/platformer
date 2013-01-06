@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -24,7 +25,7 @@ public class SimulatableGameObject implements GameObject, Movable, Renderable,
 	private Fixture fixture;
 
 	public SimulatableGameObject() {
-		position = new Vector3(500, 500, 0);
+		position = new Vector3(100, 200, 0);
 		bounds = new Rectangle(10, 10, 10, 10);
 	}
 
@@ -76,10 +77,10 @@ public class SimulatableGameObject implements GameObject, Movable, Renderable,
 
 		body.setLinearDamping(1f);
 
-		PolygonShape squareShape = new PolygonShape();
-		squareShape.setAsBox(bounds.width / 2, bounds.height / 2);
+		CircleShape circleShape = new CircleShape();
+		circleShape.setRadius(bounds.width / 2);
 
-		fixture = body.createFixture(squareShape, 70);
+		fixture = body.createFixture(circleShape, 70);
 		fixture.setRestitution(1);
 
 		return body;

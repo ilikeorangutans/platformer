@@ -58,8 +58,8 @@ public class DummyCharacter implements GameObject, Movable, Controllable,
 	}
 
 	@Override
-	public void applyVelocity(Vector3 vector) {
-		body.applyForce(vector.x * 10000, vector.y * 10000, 0, 0);
+	public void applyVelocity(Vector3 vector) {		
+		body.applyLinearImpulse(vector.x * 10000, vector.y * 10000, bounds.width / 2, bounds.height / 2);
 	}
 
 	@Override
@@ -72,7 +72,7 @@ public class DummyCharacter implements GameObject, Movable, Controllable,
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 	@Override
 	public Body initialize(World world) {
 		BodyDef bodyDef = new BodyDef();
@@ -80,11 +80,14 @@ public class DummyCharacter implements GameObject, Movable, Controllable,
 		bodyDef.position.set(position.x, position.y);
 
 		body = world.createBody(bodyDef);
+		body.setFixedRotation(true);
+		body.setLinearDamping(0.5f);
 
 		PolygonShape squareShape = new PolygonShape();
 		squareShape.setAsBox(bounds.width / 2, bounds.height / 2);
 
-		fixture = body.createFixture(squareShape, 10);
+		fixture = body.createFixture(squareShape, 30);
+		//fixture.setFriction(5f);
 		fixture.setRestitution(0);
 
 		return body;
