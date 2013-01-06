@@ -3,6 +3,7 @@ package platformer.core.renderer.impl.dummy;
 import platformer.core.renderer.Renderable;
 import platformer.core.renderer.Renderer;
 
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -27,6 +28,11 @@ public class DummyRectanleRenderer implements Renderer {
 				renderable.getBounds().height);
 		renderer.end();
 
+	}
+
+	@Override
+	public void initialize(Camera camera) {
+		renderer.setProjectionMatrix(camera.combined);
 	}
 
 }

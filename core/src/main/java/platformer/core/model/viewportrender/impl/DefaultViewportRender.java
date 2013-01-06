@@ -31,6 +31,8 @@ public class DefaultViewportRender implements ViewportRender {
 			final Renderer renderer = rendererFactory.findRenderer(renderable
 					.getClass());
 
+			renderer.initialize(camera);
+
 			renderer.render(renderable);
 		}
 	}

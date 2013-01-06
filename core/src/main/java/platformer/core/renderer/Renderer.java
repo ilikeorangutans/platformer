@@ -1,5 +1,6 @@
 package platformer.core.renderer;
 
+import com.badlogic.gdx.graphics.Camera;
 
 /**
  * Renders a single {@link Renderable} object.
@@ -8,6 +9,8 @@ package platformer.core.renderer;
  * 
  */
 public interface Renderer {
+
+	void initialize(Camera camera);
 
 	void render(Renderable renderable);
 
