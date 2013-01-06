@@ -75,6 +75,7 @@ public class PlatformerGame implements ApplicationListener {
 
 		Collection<Command> inputState = inputHandler.readInput();
 		director.addCommand(inputState);
+		director.update();
 
 		GameState gameState = director.getGameState();
 

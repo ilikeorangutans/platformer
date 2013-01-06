@@ -7,11 +7,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.badlogic.gdx.Gdx;
+
 import platformer.core.model.GameObject;
 import platformer.core.model.GameState;
 import platformer.core.model.Level;
 import platformer.core.model.Renderable;
-import platformer.core.model.command.Command;
 
 public class GameStateImpl implements GameState {
 
@@ -69,7 +70,6 @@ public class GameStateImpl implements GameState {
 				toRemove.add(go);
 			}
 		}
-
 	}
 
 	@Override
