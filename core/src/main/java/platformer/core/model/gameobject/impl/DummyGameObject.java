@@ -47,8 +47,6 @@ public class DummyGameObject implements GameObject, Movable, Renderable {
 		position.add(MathUtils.random(0.0F, 1.0F),
 				MathUtils.random(-1.0F, 1.0F), 0);
 
-		Gdx.app.debug("DummyObject", "At " + position + " now.");
-
 		counter++;
 
 		if (counter > 10000)

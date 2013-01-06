@@ -80,7 +80,7 @@ public class GameStateImpl implements GameState {
 			}
 		}
 		
-		world.step(Gdx.graphics.getDeltaTime(), 6, 2);
+		world.step(Gdx.graphics.getDeltaTime(), 8, 3);
 	}
 
 	@Override

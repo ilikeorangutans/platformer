@@ -1,5 +1,7 @@
 package platformer.core.model.gameobject.impl;
 
+import java.awt.geom.RectangularShape;
+
 import platformer.core.model.GameObject;
 import platformer.core.model.Positionable;
 import platformer.core.model.Simulatable;
@@ -70,12 +72,12 @@ public class LevelTile implements GameObject, Positionable, Renderable,
 
 		body = world.createBody(bodyDef);
 
-		CircleShape tileShape = new CircleShape();
-		tileShape.setRadius(bounds.width / 2);
+		PolygonShape tileShape = new PolygonShape();
+		tileShape.setAsBox(bounds.width / 2, bounds.height / 2);
 		
 		fixture = body.createFixture(tileShape, 70);
 		fixture.setFriction(5f);
-		fixture.setRestitution(1f);
+		fixture.setRestitution(0.75f);
 
 		return body;
 	}

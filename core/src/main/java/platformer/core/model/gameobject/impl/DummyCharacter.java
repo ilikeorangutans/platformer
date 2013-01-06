@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -27,7 +28,7 @@ public class DummyCharacter implements GameObject, Movable, Controllable,
 
 	public DummyCharacter() {
 		position = new Vector3(100, 100, 0);
-		bounds = new Rectangle(10, 10, 10, 10);
+		bounds = new Rectangle(64, 64, 64, 64);
 	}
 
 	@Override
@@ -59,7 +60,7 @@ public class DummyCharacter implements GameObject, Movable, Controllable,
 
 	@Override
 	public void applyVelocity(Vector3 vector) {		
-		body.applyLinearImpulse(vector.x * 10000, vector.y * 10000, bounds.width / 2, bounds.height / 2);
+		body.applyLinearImpulse(vector.x * 1000000, vector.y * 1000000, bounds.width / 2, bounds.height / 2);
 	}
 
 	@Override
@@ -81,12 +82,12 @@ public class DummyCharacter implements GameObject, Movable, Controllable,
 
 		body = world.createBody(bodyDef);
 		body.setFixedRotation(true);
-		body.setLinearDamping(0.5f);
+		body.setLinearDamping(0.4f);
 
-		PolygonShape squareShape = new PolygonShape();
-		squareShape.setAsBox(bounds.width / 2, bounds.height / 2);
+		CircleShape circShape = new CircleShape();
+		circShape.setRadius(bounds.width / 2);
 
-		fixture = body.createFixture(squareShape, 30);
+		fixture = body.createFixture(circShape, 20);
 		//fixture.setFriction(5f);
 		fixture.setRestitution(0);
 
