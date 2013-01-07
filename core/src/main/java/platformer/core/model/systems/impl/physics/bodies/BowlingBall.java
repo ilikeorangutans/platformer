@@ -26,6 +26,7 @@ public class BowlingBall implements PhysicsBody {
 
 		Fixture fixture = body.createFixture(circleShape, 30);
 		fixture.setRestitution(0);
+		fixture.setFriction(0.01f);
 		
 		return body;
 	}

@@ -25,7 +25,7 @@ public class Square implements PhysicsBody {
 		tileShape.setAsBox(bounds.width / 2, bounds.height / 2);
 		
 		Fixture fixture = body.createFixture(tileShape, 70);
-		fixture.setFriction(5f);
+		fixture.setFriction(20f);
 		fixture.setRestitution(0.75f);
 		
 		return body;

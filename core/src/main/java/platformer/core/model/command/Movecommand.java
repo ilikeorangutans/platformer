@@ -16,8 +16,6 @@ public class MoveCommand extends AbstractCommand {
 	}
 
 	public void execute(Object object) {
-		Gdx.app.log("Moveable", "Executing");
-		
 		if (object instanceof Movable) {
 			Movable obj = (Movable) object; 
 			obj.move(vector);

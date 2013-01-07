@@ -61,7 +61,7 @@ public class ExampleGameObject implements GameObject, Simulatable, Renderable {
 
 	@Override
 	public void move(Vector3 vector) {
-		this.getPhysicsBody().applyLinearImpulse(vector.x * 1000000, vector.y * 1000000, bounds.width / 2, bounds.height / 2);
+		this.getPhysicsBody().applyLinearImpulse(vector.x * 10000000, vector.y * 10000000, bounds.width / 2, bounds.height / 2);
 	}
 
 }
