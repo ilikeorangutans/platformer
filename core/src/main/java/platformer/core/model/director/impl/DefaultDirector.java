@@ -4,27 +4,37 @@ import platformer.core.model.Director;
 import platformer.core.model.GameState;
 import platformer.core.model.Level;
 import platformer.core.model.command.Command;
-import platformer.core.model.gameobject.impl.DummyCharacter;
-import platformer.core.model.gameobject.impl.SimulatableGameObject;
+import platformer.core.model.gameobject.impl.ExampleGameObject;
 import platformer.core.model.gamestate.impl.GameStateImpl;
 import platformer.core.model.level.impl.DummyLevel;
+import platformer.core.model.systems.impl.physics.PhysicsSystem;
+import platformer.core.model.systems.impl.physics.bodies.BowlingBall;
 
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 
 public class DefaultDirector implements Director {
 	final private GameState gameState;
 	private Array<Command> commandList = new Array<Command>();
+	private PhysicsSystem physicsSystem;
 	
 	public DefaultDirector(){
-		// Setup game state
-		DummyCharacter playerControlled = new DummyCharacter();
-		SimulatableGameObject objectSim = new SimulatableGameObject();
-		Level level = new DummyLevel();
-		gameState = new GameStateImpl();
+		//Load Level
+		Level level = new DummyLevel(); 
 		
+		physicsSystem = new PhysicsSystem(level.getGravity());
+
+		// Setup game state
+		level.initialize(physicsSystem); //Until i figure out a workaround, need to pass in the system in order to create bodies from within.
+		gameState = new GameStateImpl();
 		gameState.initialize(level);
-		gameState.addGameObject(playerControlled);
-		gameState.addGameObject(objectSim);
+		
+		Vector3 testPosition = new Vector3(100, 100, 0);
+		Rectangle testBound = new Rectangle(0, 0, 64, 64);
+		ExampleGameObject object = new ExampleGameObject(testPosition, testBound, physicsSystem.createBody(BowlingBall.class.getName(), testPosition, testBound));
+		
+		gameState.addGameObject(object);
 	}
 	
 	public void update() {
@@ -42,6 +52,7 @@ public class DefaultDirector implements Director {
 		
 		//execute and wipe
 		gameState.update();
+		physicsSystem.update(gameState.getSimulatableObjects());
 		commandList.clear();
 	}
 
@@ -58,6 +69,10 @@ public class DefaultDirector implements Director {
 	@Override
 	public GameState getGameState() {
 		return gameState;
+	}
+	
+	public PhysicsSystem getPhysicsSystem() {
+		return physicsSystem;
 	}
 
 }

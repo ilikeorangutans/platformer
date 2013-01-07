@@ -5,34 +5,30 @@ import java.util.LinkedList;
 
 import platformer.core.model.GameObject;
 import platformer.core.model.Level;
-import platformer.core.model.gameobject.impl.DummyGameObject;
 import platformer.core.model.gameobject.impl.LevelTile;
+import platformer.core.model.systems.impl.physics.PhysicsSystem;
+import platformer.core.model.systems.impl.physics.bodies.Square;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.physics.box2d.Body;
 
 public class DummyLevel implements Level {
 
 	private Collection<GameObject> gameObjects;
 
 	public DummyLevel() {
-		gameObjects = new LinkedList<GameObject>();
-
-		gameObjects.add(new DummyGameObject());
-
+		gameObjects = new LinkedList<GameObject>();		
+	}
+	
+	public void initialize(PhysicsSystem physicsSystem) {
 		for (int i = 0; i < 200; i++) {
-			gameObjects.add(new LevelTile(new Vector3(i * 10, 0, 0),
-					new Rectangle(0, 0, 10, 10)));
+			Vector3 position = new Vector3(i * 10, 0, 0);
+			Rectangle bounds = new Rectangle(0, 0, 10, 10);
+			Body squareBody = physicsSystem.createBody(Square.class.getName(), position, bounds);
+			gameObjects.add(new LevelTile(position, bounds, squareBody));
 		}
-		
-		for (int i = 0; i < 20; i++) {
-			gameObjects.add(new LevelTile(new Vector3(i * 10, 200, 0),
-					new Rectangle(0, 0, 10, 10)));
-		}
-
 	}
 
 	@Override

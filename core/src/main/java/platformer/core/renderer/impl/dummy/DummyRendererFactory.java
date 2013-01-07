@@ -1,6 +1,5 @@
 package platformer.core.renderer.impl.dummy;
 
-import platformer.core.model.gameobject.impl.DummyGameObject;
 import platformer.core.renderer.Renderable;
 import platformer.core.renderer.Renderer;
 import platformer.core.renderer.RendererFactory;
@@ -20,11 +19,7 @@ public class DummyRendererFactory implements RendererFactory {
 
 	@Override
 	public Renderer findRenderer(Class<? extends Renderable> clazz) {
-		if (DummyGameObject.class.isAssignableFrom(clazz)) {
-			return renderer;
-		} else {
-			return circleRenderer;
-		}
+		return circleRenderer;
 	}
 
 }

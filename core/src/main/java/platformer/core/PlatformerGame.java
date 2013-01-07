@@ -8,13 +8,13 @@ import platformer.core.model.GameState;
 import platformer.core.model.InputHandler;
 import platformer.core.model.Level;
 import platformer.core.model.Player;
-import platformer.core.model.Positionable;
 import platformer.core.model.ViewportRender;
 import platformer.core.model.camera.impl.DefaultCamera;
 import platformer.core.model.command.Command;
 import platformer.core.model.director.impl.DefaultDirector;
 import platformer.core.model.inputhandler.impl.DefaultInputHandler;
 import platformer.core.model.level.impl.DummyLevel;
+import platformer.core.model.systems.Positionable;
 import platformer.core.model.viewportrender.impl.DefaultViewportRender;
 import platformer.core.renderer.RendererFactory;
 import platformer.core.renderer.impl.dummy.DummyRendererFactory;
@@ -57,10 +57,7 @@ public class PlatformerGame implements ApplicationListener {
 		Gdx.app.setLogLevel(LOG_LEVEL);
 
 		rendererFactory = new DummyRendererFactory();
-
-		// Create/load level;
-		level = new DummyLevel();
-
+		
 		// Setup director;
 		director = new DefaultDirector();
 
@@ -101,7 +98,7 @@ public class PlatformerGame implements ApplicationListener {
 		GameState gameState = director.getGameState();
 
 		renderer.render(gameState.getRenderableObjects());
-		debugRenderer.render(gameState.getWorld(), camera.combined);
+		debugRenderer.render(director.getPhysicsSystem().getWorld(), camera.combined);
 		
 		gameState.cleanUp();
 	}

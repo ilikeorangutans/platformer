@@ -2,7 +2,7 @@ package platformer.core.model.camera.impl;
 
 import platformer.core.model.Camera;
 import platformer.core.model.GameObject;
-import platformer.core.model.Positionable;
+import platformer.core.model.systems.Positionable;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -58,8 +58,8 @@ public class DefaultCamera extends OrthographicCamera implements Camera {
 
 	@Override
 	public void setTarget(Positionable t) {
-		target = t;
-		oldTargetPos = target.getPosition();
+		this.target = t;
+		oldTargetPos = t.getPosition();
 		position.x = oldTargetPos.x;
 		position.y = oldTargetPos.y;
 	}

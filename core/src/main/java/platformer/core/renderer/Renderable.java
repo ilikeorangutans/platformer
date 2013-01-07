@@ -1,6 +1,6 @@
 package platformer.core.renderer;
 
-import platformer.core.model.Positionable;
+import platformer.core.model.systems.Positionable;
 
 public interface Renderable extends Positionable {
 

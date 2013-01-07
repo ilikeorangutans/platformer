@@ -23,9 +23,4 @@ public interface GameObject {
 	 */
 	String getId();
 
-	/**
-	 * Update the game object. Called for each iteration in the gameloop.
-	 */
-	void update();
-
 }

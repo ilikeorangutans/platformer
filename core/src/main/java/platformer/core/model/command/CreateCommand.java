@@ -1,10 +1,5 @@
 package platformer.core.model.command;
 
-import platformer.core.model.GameState;
-import platformer.core.model.gameobject.impl.DummyGameObject;
-import platformer.core.model.gameobject.impl.SimulatableGameObject;
-
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector3;
 
 public class CreateCommand extends AbstractCommand implements CoordinateDependentCommand, ThrottleableCommand {
@@ -24,9 +19,7 @@ public class CreateCommand extends AbstractCommand implements CoordinateDependen
 
 	@Override
 	public void execute(Object o) {
-		Gdx.app.log("creating object", "x" + position.x + "y" + position.y);
-		((GameState) o).addGameObject(
-				new SimulatableGameObject(position));
+		
 	}
 
 	@Override

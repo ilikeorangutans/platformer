@@ -2,9 +2,8 @@ package platformer.core.model;
 
 import java.util.Collection;
 
+import platformer.core.model.systems.Simulatable;
 import platformer.core.renderer.Renderable;
-
-import com.badlogic.gdx.physics.box2d.World;
 
 public interface GameState extends Iterable<GameObject> {
 
@@ -44,12 +43,7 @@ public interface GameState extends Iterable<GameObject> {
 	 * @return
 	 */
 	GameObject findGameObjectById(String id);
-	
-	/**
-	 * Returns a physics {@link World} based. 
-	 * 
-	 * @return World
-	 */
-	World getWorld();
+
+	Collection<GameObject> getSimulatableObjects();
 
 }
