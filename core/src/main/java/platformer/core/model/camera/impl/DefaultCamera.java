@@ -3,6 +3,7 @@ package platformer.core.model.camera.impl;
 import platformer.core.model.Camera;
 import platformer.core.model.GameObject;
 import platformer.core.model.systems.Positionable;
+import platformer.core.model.systems.Simulatable;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -49,7 +50,15 @@ public class DefaultCamera extends OrthographicCamera implements Camera {
 			}
 
 			if ( Math.abs(diffY) > Y_THRESHOLD ) {
-				this.translate(0, deltaY);
+				if (diffY > 0 && ((Simulatable) target).isGrounded()) {
+					//If object moved up, only center camera once grounded
+					this.translate(0, diffY / 50);	
+				} else if(diffY > 0) { 
+					//If object moved up translate in fraction of delta speed
+					this.translate(0, deltaY * 0.25f);
+				} else if (diffY < 0) {
+					this.translate(0, deltaY);
+				}
 			}
 							
 			oldTargetPos = new Vector3(targetPos);

@@ -66,7 +66,7 @@ public class ExampleGameObject implements GameObject, Simulatable, Renderable {
 	public void move(Vector3 vector) {
 		
 		if(vector.y != 0) {
-			float impulseRatio = body.getMass() * 500000;
+			float impulseRatio = body.getMass() * 4;
 			//Jump
 			if (isGrounded) {
 				body.applyLinearImpulse(new Vector2(0, impulseRatio), body.getWorldCenter());
@@ -75,7 +75,7 @@ public class ExampleGameObject implements GameObject, Simulatable, Renderable {
 		
 		if(vector.x != 0) {
 			//Run
-		    body.applyForce(new Vector2((body.getMass() * 20) * vector.x, 0), body.getWorldCenter());
+		    body.applyForce(new Vector2((body.getMass()) * vector.x, 0), body.getWorldCenter());
 		}
 	}
 

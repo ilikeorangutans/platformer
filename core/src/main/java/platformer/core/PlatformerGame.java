@@ -1,7 +1,5 @@
 package platformer.core;
 
-import java.util.Collection;
-
 import platformer.core.model.Controllable;
 import platformer.core.model.Director;
 import platformer.core.model.GameState;
@@ -13,7 +11,6 @@ import platformer.core.model.camera.impl.DefaultCamera;
 import platformer.core.model.command.Command;
 import platformer.core.model.director.impl.DefaultDirector;
 import platformer.core.model.inputhandler.impl.DefaultInputHandler;
-import platformer.core.model.level.impl.DummyLevel;
 import platformer.core.model.systems.Positionable;
 import platformer.core.model.viewportrender.impl.DefaultViewportRender;
 import platformer.core.renderer.RendererFactory;
@@ -24,9 +21,9 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.Array;
 
@@ -48,6 +45,7 @@ public class PlatformerGame implements ApplicationListener {
 	private Controllable playerControlled;
 	private RendererFactory rendererFactory;
 	private AssetManager assetManager;
+	private Matrix4 debugMatrix;
 
 	@Override
 	public void create() {
@@ -98,7 +96,12 @@ public class PlatformerGame implements ApplicationListener {
 		GameState gameState = director.getGameState();
 
 		renderer.render(gameState.getRenderableObjects());
-		//debugRenderer.render(director.getPhysicsSystem().getWorld(), camera.combined);
+		
+		//Setup debug camera matrix and render
+		float ratio = director.getPhysicsSystem().getRatio();
+		debugMatrix = new Matrix4(camera.combined);
+		debugMatrix.scale(1 / ratio, 1 / ratio, 1f);
+		debugRenderer.render(director.getPhysicsSystem().getWorld(), debugMatrix);
 		
 		gameState.cleanUp();
 	}

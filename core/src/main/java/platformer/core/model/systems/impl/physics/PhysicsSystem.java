@@ -23,6 +23,8 @@ public class PhysicsSystem implements GenericSystem {
 	World world;
 	private boolean isCurrentObjectGrounded;
 	private int fixtureCount;
+	private final float PX2M_RATIO = 1.6f / 64; // Assuming our character is
+												// 1.6m tall
 
 	public PhysicsSystem(Vector2 gravity) {
 		world = new World(gravity, true);
@@ -33,9 +35,14 @@ public class PhysicsSystem implements GenericSystem {
 
 		Constructor construct;
 		try {
+
 			construct = Class.forName(bodyName).getConstructor();
 			Object newInstance = construct.newInstance(null);
-			body = ((PhysicsBody) newInstance).create(world, position, bounds);
+			body = ((PhysicsBody) newInstance).create(world,
+					convertVectorToMeters(position), new Rectangle(0, 0,
+							convertPixelsToMeters(bounds.width),
+							convertPixelsToMeters(bounds.height)));
+
 		} catch (NoSuchMethodException e) {
 			Gdx.app.log("PhysicsBodyFactory", "No method found", e);
 		} catch (SecurityException e) {
@@ -51,12 +58,36 @@ public class PhysicsSystem implements GenericSystem {
 		} catch (InvocationTargetException e) {
 			Gdx.app.log("PhysicsBodyFactory", "InvocationgTarget", e);
 		}
-		
+
 		return body;
 	}
-	
+
 	public World getWorld() {
 		return world;
+	}
+
+	public float getRatio() {
+		return PX2M_RATIO;
+	}
+
+	public float convertPixelsToMeters(float i) {
+		return i * PX2M_RATIO;
+	}
+
+	public float convertMetersToPixels(float i) {
+		return i / PX2M_RATIO;
+	}
+
+	public Vector3 convertVectorToMeters(Vector3 vector) {
+		return new Vector3(convertPixelsToMeters(vector.x),
+				convertPixelsToMeters(vector.y),
+				convertPixelsToMeters(vector.z));
+	}
+
+	public Vector3 convertVectorToPixels(Vector3 vector) {
+		return new Vector3(convertMetersToPixels(vector.x),
+				convertMetersToPixels(vector.y),
+				convertMetersToPixels(vector.z));
 	}
 
 	@Override
@@ -64,42 +95,51 @@ public class PhysicsSystem implements GenericSystem {
 		for (GameObject gameObject : list) {
 			Simulatable simulatable = (Simulatable) gameObject;
 			Body curBody = simulatable.getPhysicsBody();
-			
-			//Update position
+
+			// Update position
 			Vector2 position = curBody.getPosition();
-			simulatable.setPosition(new Vector3(position.x, position.y, 0));
-			
+			simulatable.setPosition(new Vector3(
+					convertMetersToPixels(position.x),
+					convertMetersToPixels(position.y), 0));
+
 			if (curBody.getType() != BodyType.StaticBody) {
 				simulatable.setIsGrounded(checkIfIsGrounded(simulatable));
 			}
 		}
-		
+
 		world.step(Gdx.graphics.getDeltaTime(), 8, 3);
 	}
 
 	private boolean checkIfIsGrounded(Simulatable simulatable) {
+		Body body = simulatable.getPhysicsBody();
+		
 		isCurrentObjectGrounded = false;
 		fixtureCount = 0;
-		
-		Vector3 pos = simulatable.getPosition();
+
+		Vector2 pos = body.getWorldCenter();
 		Rectangle bounds = simulatable.getBounds();
-		
-		//Don't forget, x/y are center to the object
+		bounds = new Rectangle(0, 0, convertPixelsToMeters(bounds.width), convertPixelsToMeters(bounds.height));
+
+		// Don't forget, x/y are center to the object
 		float leftBottomX = pos.x;
-		float leftBottomY = pos.y - (bounds.height / 2) - 2; //Test 2 pixels under
+		float leftBottomY = pos.y - (bounds.height / 2) - convertPixelsToMeters(1); // Test 2 pixels
+																// under
 		float topRightX = pos.x;
 		float topRightY = pos.y - (bounds.height / 2);
-		
-		world.QueryAABB(new QueryCallback() {			
+
+		world.QueryAABB(new QueryCallback() {
 			@Override
 			public boolean reportFixture(Fixture fixture) {
 				fixtureCount++;
-				if(fixtureCount == 2) {
+				if (fixtureCount == 2) {
 					isCurrentObjectGrounded = true;
 				}
 				return true;
-			}			
+			}
 		}, leftBottomX, leftBottomY, topRightX, topRightY);
+		
+		//If the object is not on a fixture let's double check that is' not stuck
+		isCurrentObjectGrounded = isCurrentObjectGrounded ? isCurrentObjectGrounded : body.getLinearVelocity().y == 0;
 		
 		return isCurrentObjectGrounded;
 	}

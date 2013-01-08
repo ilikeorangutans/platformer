@@ -24,7 +24,7 @@ public class RegularPlayer implements PhysicsBody {
 		CircleShape circleShape = new CircleShape();
 		circleShape.setRadius(bounds.width / 2);
 
-		Fixture fixture = body.createFixture(circleShape, 140);
+		Fixture fixture = body.createFixture(circleShape, 1);
 		fixture.setRestitution(0);
 		fixture.setFriction(0.1f);
 		
