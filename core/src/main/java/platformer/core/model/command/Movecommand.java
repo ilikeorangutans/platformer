@@ -18,7 +18,7 @@ public class MoveCommand extends AbstractCommand {
 	public void execute(Object object) {
 		if (object instanceof Movable) {
 			Movable obj = (Movable) object; 
-			obj.move(vector);
+			obj.move(vector.cpy());
 		} else {
 			Gdx.app.error("Moveable", "Can not apply to a non movable object!");
 		}

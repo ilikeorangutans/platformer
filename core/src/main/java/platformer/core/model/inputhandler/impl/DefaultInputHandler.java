@@ -38,11 +38,11 @@ public class DefaultInputHandler implements InputHandler {
 	private void loadConfig() {
 		// TODO Replace with actual config mapping in JSON
 		eventMap = new ArrayMap<Integer, Command>();
-		eventMap.put(Input.Keys.LEFT, new MoveCommand("player", new Vector3(-1,
+		eventMap.put(Input.Keys.LEFT, new MoveCommand("player", new Vector3(-10,
 				0, 0)));
-		eventMap.put(Input.Keys.RIGHT, new MoveCommand("player", new Vector3(1,
+		eventMap.put(Input.Keys.RIGHT, new MoveCommand("player", new Vector3(10,
 				0, 0)));
-		eventMap.put(Input.Keys.UP, new MoveCommand("player", new Vector3(0, 1,
+		eventMap.put(Input.Keys.UP, new MoveCommand("player", new Vector3(0, 10,
 				0)));
 		eventMap.put(Input.Buttons.LEFT, new CreateCommand(
 				"gamestate", touchPos).setThrottle(500));

@@ -6,4 +6,7 @@ public interface Simulatable extends Movable {
 	
 	Body getPhysicsBody();
 	
+	boolean isGrounded();
+	void setIsGrounded(boolean bool);
+	
 }

@@ -38,7 +38,7 @@ public class DummyLevel implements Level {
 
 	@Override
 	public Vector2 getGravity() {
-		return new Vector2(0, -100);
+		return new Vector2(0, -98f); //9.8m * 10
 	}
 
 }

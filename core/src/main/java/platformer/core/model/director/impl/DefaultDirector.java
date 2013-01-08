@@ -7,9 +7,12 @@ import platformer.core.model.command.Command;
 import platformer.core.model.gameobject.impl.ExampleGameObject;
 import platformer.core.model.gamestate.impl.GameStateImpl;
 import platformer.core.model.level.impl.DummyLevel;
+import platformer.core.model.systems.Simulatable;
 import platformer.core.model.systems.impl.physics.PhysicsSystem;
-import platformer.core.model.systems.impl.physics.bodies.BowlingBall;
+import platformer.core.model.systems.impl.physics.bodies.RegularPlayer;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
@@ -32,7 +35,7 @@ public class DefaultDirector implements Director {
 		
 		Vector3 testPosition = new Vector3(100, 100, 0);
 		Rectangle testBound = new Rectangle(0, 0, 64, 64);
-		ExampleGameObject object = new ExampleGameObject(testPosition, testBound, physicsSystem.createBody(BowlingBall.class.getName(), testPosition, testBound));
+		ExampleGameObject object = new ExampleGameObject(testPosition, testBound, physicsSystem.createBody(RegularPlayer.class.getName(), testPosition, testBound));
 		
 		gameState.addGameObject(object);
 	}
@@ -43,7 +46,7 @@ public class DefaultDirector implements Director {
 		//apply commands to target objects
 		for (Command command : commandList) {
 			if("gamestate".equals(command.getTargetUID())) {
-				object = gameState;	
+				object = gameState;
 			} else {
 				object = gameState.findGameObjectById(command.getTargetUID());
 			}

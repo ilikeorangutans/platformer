@@ -11,7 +11,7 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
 
-public class BowlingBall implements PhysicsBody {
+public class RegularPlayer implements PhysicsBody {
 	public Body create(World world, Vector3 position, Rectangle bounds) {
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyType.DynamicBody;
@@ -24,9 +24,9 @@ public class BowlingBall implements PhysicsBody {
 		CircleShape circleShape = new CircleShape();
 		circleShape.setRadius(bounds.width / 2);
 
-		Fixture fixture = body.createFixture(circleShape, 30);
+		Fixture fixture = body.createFixture(circleShape, 140);
 		fixture.setRestitution(0);
-		fixture.setFriction(0.01f);
+		fixture.setFriction(0.1f);
 		
 		return body;
 	}

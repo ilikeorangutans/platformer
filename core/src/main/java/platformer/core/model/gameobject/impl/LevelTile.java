@@ -75,4 +75,14 @@ public class LevelTile implements GameObject, Positionable, Renderable,
 	public void setPosition(Vector3 position) {
 		this.position = position;
 	}
+
+	@Override
+	public boolean isGrounded() {
+		return true;
+	}
+
+	@Override
+	public void setIsGrounded(boolean bool) {
+		return;
+	}
 }

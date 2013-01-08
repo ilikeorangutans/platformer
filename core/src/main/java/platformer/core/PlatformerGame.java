@@ -98,7 +98,7 @@ public class PlatformerGame implements ApplicationListener {
 		GameState gameState = director.getGameState();
 
 		renderer.render(gameState.getRenderableObjects());
-		debugRenderer.render(director.getPhysicsSystem().getWorld(), camera.combined);
+		//debugRenderer.render(director.getPhysicsSystem().getWorld(), camera.combined);
 		
 		gameState.cleanUp();
 	}
