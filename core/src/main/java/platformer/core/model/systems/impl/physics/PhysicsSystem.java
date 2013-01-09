@@ -107,7 +107,8 @@ public class PhysicsSystem implements GenericSystem {
 			}
 		}
 
-		world.step(Gdx.graphics.getDeltaTime(), 8, 3);
+		//world.step(Gdx.graphics.getDeltaTime(), 8, 3);
+		world.step(1f / 45, 8, 3); //fixed time is recommended
 	}
 
 	private boolean checkIfIsGrounded(Simulatable simulatable) {

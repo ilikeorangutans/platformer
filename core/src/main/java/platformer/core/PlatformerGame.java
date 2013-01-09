@@ -101,7 +101,7 @@ public class PlatformerGame implements ApplicationListener {
 		float ratio = director.getPhysicsSystem().getRatio();
 		debugMatrix = new Matrix4(camera.combined);
 		debugMatrix.scale(1 / ratio, 1 / ratio, 1f);
-		debugRenderer.render(director.getPhysicsSystem().getWorld(), debugMatrix);
+		//debugRenderer.render(director.getPhysicsSystem().getWorld(), debugMatrix);
 		
 		gameState.cleanUp();
 	}
