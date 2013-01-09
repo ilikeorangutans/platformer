@@ -143,8 +143,6 @@ public class PhysicsSystem implements GenericSystem {
 			}
 		}, leftBottomX, leftBottomY, topRightX, topRightY);
 		
-		Gdx.app.log("wtf", "a" + String.valueOf(isCurrentObjectGrounded));
-		
 		//If the object is not on a fixture let's double check that is' not stuck
 		isCurrentObjectGrounded = isCurrentObjectGrounded ? isCurrentObjectGrounded : body.getLinearVelocity().y == 0;
 		
