@@ -12,6 +12,7 @@ public class FalseCondition implements Condition {
 
 	@Override
 	public boolean isMet(GameState gameState) {
+		// So negative!!
 		return false;
 	}
 
