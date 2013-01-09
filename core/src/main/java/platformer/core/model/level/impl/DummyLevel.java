@@ -17,28 +17,32 @@ import com.badlogic.gdx.physics.box2d.Body;
 
 public class DummyLevel implements Level {
 
+	private static final int TILE_WIDTH = 20;
 	private Collection<GameObject> gameObjects;
 
 	public DummyLevel() {
-		gameObjects = new LinkedList<GameObject>();		
+		gameObjects = new LinkedList<GameObject>();
 	}
-	
+
 	public void initialize(PhysicsSystem physicsSystem) {
 		for (int i = 0; i < 200; i++) {
-			Vector3 position = new Vector3(i * 10, 0, 0);
-			Rectangle bounds = new Rectangle(0, 0, 10, 10);
-			Body squareBody = physicsSystem.createBody(Square.class.getName(), position, bounds);
+			Vector3 position = new Vector3(i * TILE_WIDTH, 0, 0);
+			Rectangle bounds = new Rectangle(0, 0, TILE_WIDTH, TILE_WIDTH);
+			Body squareBody = physicsSystem.createBody(Square.class.getName(),
+					position, bounds);
 			gameObjects.add(new LevelTile(position, bounds, squareBody));
 		}
-		
-		//Generate some platforms
+
+		// Generate some platforms
 		for (int i = 0; i < 30; i++) {
-			Vector3 position = new Vector3(MathUtils.random(100, 2000), MathUtils.random(100, 2000), 0);
-			
-			for(int j=1; j < MathUtils.random(20, 60); j++){
-				Rectangle bounds = new Rectangle(0, 0, 10, 10);
-				position.x = position.x + 10;
-				Body squareBody = physicsSystem.createBody(Square.class.getName(), position, bounds);
+			Vector3 position = new Vector3(MathUtils.random(100, 2000),
+					MathUtils.random(100, 2000), 0);
+
+			for (int j = 1; j < MathUtils.random(20, 60); j++) {
+				Rectangle bounds = new Rectangle(0, 0, TILE_WIDTH, TILE_WIDTH);
+				position.x = position.x + TILE_WIDTH;
+				Body squareBody = physicsSystem.createBody(
+						Square.class.getName(), position, bounds);
 				gameObjects.add(new LevelTile(position, bounds, squareBody));
 			}
 		}
@@ -51,7 +55,7 @@ public class DummyLevel implements Level {
 
 	@Override
 	public Vector2 getGravity() {
-		return new Vector2(0, -9.8f); 
+		return new Vector2(0, -9.8f);
 	}
 
 }

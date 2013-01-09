@@ -20,7 +20,7 @@ public class DefaultInputHandler implements InputHandler {
 	private OrthographicCamera camera;
 	private Vector3 touchPos = new Vector3(0, 0, 0);
 	private ArrayMap<Integer, Command> eventMap;
-	private ArrayMap<Integer, Long> throttledEvents; 
+	private ArrayMap<Integer, Long> throttledEvents;
 	private Array<Integer> currentInputState;
 
 	public DefaultInputHandler(Input input, OrthographicCamera camera) {
@@ -38,54 +38,56 @@ public class DefaultInputHandler implements InputHandler {
 	private void loadConfig() {
 		// TODO Replace with actual config mapping in JSON
 		eventMap = new ArrayMap<Integer, Command>();
-		eventMap.put(Input.Keys.LEFT, new MoveCommand("player", new Vector3(-10,
-				0, 0)));
-		eventMap.put(Input.Keys.RIGHT, new MoveCommand("player", new Vector3(10,
-				0, 0)));
-		eventMap.put(Input.Keys.UP, new MoveCommand("player", new Vector3(0, 10,
-				0)));
-		eventMap.put(Input.Buttons.LEFT, new CreateCommand(
-				"gamestate", touchPos).setThrottle(500));
+		eventMap.put(Input.Keys.LEFT, new MoveCommand("player", new Vector3(
+				-10, 0, 0)));
+		eventMap.put(Input.Keys.RIGHT, new MoveCommand("player", new Vector3(
+				10, 0, 0)));
+		eventMap.put(Input.Keys.UP, new MoveCommand("player", new Vector3(0,
+				10, 0)));
+		eventMap.put(Input.Buttons.LEFT, new CreateCommand("gamestate",
+				touchPos).setThrottle(500));
 	}
 
 	@Override
-	public Array<Command> readInput(){
+	public Array<Command> readInput() {
 		Command command;
 		Long unlockTime;
 		long currentTime = System.currentTimeMillis();
 		currentCommandList.clear();
-				
-		//Gather commands that match current input state
-		for (Integer key : currentInputState) {
-			command = eventMap.get(key);			
 
-			//If the command is CoordinateDependentCommand, then update pointer values
+		// Gather commands that match current input state
+		for (Integer key : currentInputState) {
+			command = eventMap.get(key);
+
+			// If the command is CoordinateDependentCommand, then update pointer
+			// values
 			if (command instanceof CoordinateDependentCommand) {
 				((CoordinateDependentCommand) command).setPosition(touchPos);
 			}
-			
-			//Add command
+
+			// Add command
 			if (command != null && !throttledEvents.containsKey(key)) {
 				currentCommandList.add(command);
-			}			
-			
-			//If the command is Throttleable.
-			//If block expired then unblock
-			//Otherwise block it for the next cycle
+			}
+
+			// If the command is Throttleable.
+			// If block expired then unblock
+			// Otherwise block it for the next cycle
 			if (command instanceof ThrottleableCommand) {
 				unlockTime = throttledEvents.get(key);
 				if (unlockTime != null) {
-					if(currentTime >= unlockTime) {
+					if (currentTime >= unlockTime) {
 						throttledEvents.removeKey(key);
 					}
 				} else {
-					unlockTime = System.currentTimeMillis() + ((ThrottleableCommand) command).getThrottle();
+					unlockTime = System.currentTimeMillis()
+							+ ((ThrottleableCommand) command).getThrottle();
 					throttledEvents.put(key, unlockTime);
 				}
 			}
 
 		}
-		
+
 		return currentCommandList;
 	}
 
@@ -129,6 +131,7 @@ public class DefaultInputHandler implements InputHandler {
 	public boolean mouseMoved(int screenX, int screenY) {
 		touchPos = new Vector3(screenX, screenY, 0);
 		camera.unproject(touchPos);
+
 		return true;
 	}
 

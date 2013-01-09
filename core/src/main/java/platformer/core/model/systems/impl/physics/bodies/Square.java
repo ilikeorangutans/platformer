@@ -23,11 +23,11 @@ public class Square implements PhysicsBody {
 
 		PolygonShape tileShape = new PolygonShape();
 		tileShape.setAsBox(bounds.width / 2, bounds.height / 2);
-		
+
 		Fixture fixture = body.createFixture(tileShape, 70);
 		fixture.setFriction(1f);
 		fixture.setRestitution(0.01f);
-		
+
 		return body;
 	}
 
