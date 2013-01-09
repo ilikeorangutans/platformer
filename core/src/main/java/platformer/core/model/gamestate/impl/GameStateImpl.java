@@ -14,7 +14,6 @@ import platformer.core.model.systems.Simulatable;
 import platformer.core.renderer.Renderable;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.physics.box2d.World;
 
 public class GameStateImpl implements GameState {
 
@@ -98,4 +97,5 @@ public class GameStateImpl implements GameState {
 	public Collection<GameObject> getSimulatableObjects() {
 		return simulatableObjects;
 	}
+
 }
