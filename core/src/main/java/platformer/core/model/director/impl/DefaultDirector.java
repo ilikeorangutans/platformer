@@ -124,7 +124,8 @@ public class DefaultDirector implements Director {
 			}
 			command.execute(object);
 		}
-
+		
+		commandList.clear();
 	}
 
 	@Override

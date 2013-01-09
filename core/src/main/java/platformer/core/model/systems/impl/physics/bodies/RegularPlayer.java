@@ -34,9 +34,9 @@ public class RegularPlayer implements PhysicsBody {
 		
 		circShape.setPosition(new Vector2(0, -(bounds.height / 4)));
 		
-		Fixture legs = body.createFixture(circShape, 5);
+		Fixture legs = body.createFixture(circShape, 1);
 		head.setRestitution(0);
-		head.setFriction(0.1f);
+		head.setFriction(0.2f);
 		
 		return body;
 	}
