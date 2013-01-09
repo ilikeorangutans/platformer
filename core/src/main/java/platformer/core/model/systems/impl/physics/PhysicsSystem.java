@@ -26,7 +26,10 @@ public class PhysicsSystem implements GenericSystem {
 	private final float PX2M_RATIO = 1.6f / 64; // Assuming our character is
 												// 1.6m tall
 
-	public PhysicsSystem(Vector2 gravity) {
+	public PhysicsSystem() {
+	}
+	
+	public void initialize(Vector2 gravity) {
 		world = new World(gravity, true);
 	}
 

@@ -49,34 +49,10 @@ public class PlatformerGame implements ApplicationListener {
 
 	@Override
 	public void create() {
-		assetManager = new AssetManager();
-		assetManager.load("assets/grass_single.png", Texture.class);
-		assetManager.load("assets/stickman.png", Texture.class);
-
 		Gdx.app.setLogLevel(LOG_LEVEL);
-
-		rendererFactory = new AssetRendererFactory(assetManager);// = new
-																	// DummyRendererFactory();
 
 		// Setup director;
 		director = new DefaultDirector();
-
-		// Setup camera
-		camera = new DefaultCamera();
-		camera.setToOrtho(false, 800, 600);
-		camera.setTarget((Positionable) director.getGameState()
-				.findGameObjectById("player"));
-
-		// Setup input handler;
-		inputHandler = new DefaultInputHandler(Gdx.input, camera);
-		Gdx.input.setInputProcessor(inputHandler);
-
-		// Setup Renderer
-		renderer = new DefaultViewportRender(rendererFactory, Gdx.graphics,
-				camera);
-
-		debugRenderer = new Box2DDebugRenderer();
-		debugRenderer.setDrawVelocities(true);
 	}
 
 	@Override
@@ -85,32 +61,11 @@ public class PlatformerGame implements ApplicationListener {
 
 	@Override
 	public void render() {
-		if (!assetManager.update()) {
-			Gdx.app.debug("asset loading", "loading assets");
-
-			return;
-		}
 		// Clear screen to black
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-
-		Array<Command> inputState = inputHandler.readInput();
-		director.addCommand(inputState);
+		
 		director.update();
-
-		GameState gameState = director.getGameState();
-
-		renderer.render(gameState.getRenderableObjects());
-
-		// Setup debug camera matrix and render
-		float ratio = director.getPhysicsSystem().getRatio();
-		debugMatrix = new Matrix4(camera.combined);
-		debugMatrix.scale(1 / ratio, 1 / ratio, 1f);
-		// debugRenderer.render(director.getPhysicsSystem().getWorld(),
-		// debugMatrix);
-		debugRenderer.render(director.getPhysicsSystem().getWorld(),
-				debugMatrix);
-		gameState.cleanUp();
 	}
 
 	@Override
