@@ -98,7 +98,7 @@ public class DefaultDirector implements Director {
 		}
 
 		renderer.render(gameState.getRenderableObjects());
-		debugRender();
+//		debugRender();
 
 		gameState.cleanUp();
 	}
