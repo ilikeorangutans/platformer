@@ -8,15 +8,15 @@ import com.badlogic.gdx.assets.AssetManager;
 
 public class AssetRendererFactory implements RendererFactory {
 
-	private final AssetManager assetManager;
+	private final Renderer renderer;
 
 	public AssetRendererFactory(AssetManager assetManager) {
-		this.assetManager = assetManager;
+		renderer = new TextureRenderer(assetManager);
 	}
 
 	@Override
 	public Renderer findRenderer(Class<? extends Renderable> clazz) {
-		return null;
+		return renderer;
 	}
 
 }

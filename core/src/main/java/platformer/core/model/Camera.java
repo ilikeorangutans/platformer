@@ -7,5 +7,5 @@ public interface Camera {
 	void update();
 
 	void setTarget(Positionable target);
-	
+
 }

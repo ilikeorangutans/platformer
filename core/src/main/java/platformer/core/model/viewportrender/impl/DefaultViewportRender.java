@@ -26,6 +26,7 @@ public class DefaultViewportRender implements ViewportRender {
 	public void render(Collection<Renderable> renderableObjects) {
 		camera.update();
 
+		Renderer lastRenderer = null;
 		for (Renderable renderable : renderableObjects) {
 
 			final Renderer renderer = rendererFactory.findRenderer(renderable
@@ -34,7 +35,16 @@ public class DefaultViewportRender implements ViewportRender {
 			renderer.initialize(camera);
 
 			renderer.render(renderable);
+
+			if (lastRenderer != null && lastRenderer != renderer) {
+				renderer.finish();
+			}
+
+			lastRenderer = renderer;
 		}
-		
+
+		if (lastRenderer != null)
+			lastRenderer.finish();
+
 	}
 }

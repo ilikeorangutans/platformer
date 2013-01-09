@@ -15,15 +15,16 @@ public class NullRenderer implements Renderer {
 
 	public static final Renderer INSTANCE = new NullRenderer();
 
-	public NullRenderer() {
-	}
-
 	@Override
 	public void render(Renderable renderable) {
 	}
 
 	@Override
 	public void initialize(Camera camera) {
+	}
+
+	@Override
+	public void finish() {
 	}
 
 }

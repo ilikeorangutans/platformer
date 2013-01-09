@@ -14,7 +14,7 @@ import platformer.core.model.inputhandler.impl.DefaultInputHandler;
 import platformer.core.model.systems.Positionable;
 import platformer.core.model.viewportrender.impl.DefaultViewportRender;
 import platformer.core.renderer.RendererFactory;
-import platformer.core.renderer.impl.dummy.DummyRendererFactory;
+import platformer.core.renderer.impl.asset.AssetRendererFactory;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationListener;
@@ -50,19 +50,22 @@ public class PlatformerGame implements ApplicationListener {
 	@Override
 	public void create() {
 		assetManager = new AssetManager();
-		assetManager.load("../assets/grass.png", Texture.class);
+		assetManager.load("../assets/grass_single.png", Texture.class);
+		assetManager.load("../assets/stickman.png", Texture.class);
 
 		Gdx.app.setLogLevel(LOG_LEVEL);
 
-		rendererFactory = new DummyRendererFactory();
-		
+		rendererFactory = new AssetRendererFactory(assetManager);// = new
+																	// DummyRendererFactory();
+
 		// Setup director;
 		director = new DefaultDirector();
 
 		// Setup camera
 		camera = new DefaultCamera();
 		camera.setToOrtho(false, 800, 600);
-		camera.setTarget((Positionable) director.getGameState().findGameObjectById("player"));
+		camera.setTarget((Positionable) director.getGameState()
+				.findGameObjectById("player"));
 
 		// Setup input handler;
 		inputHandler = new DefaultInputHandler(Gdx.input, camera);
@@ -84,6 +87,8 @@ public class PlatformerGame implements ApplicationListener {
 	public void render() {
 		if (!assetManager.update()) {
 			Gdx.app.debug("asset loading", "loading assets");
+
+			return;
 		}
 		// Clear screen to black
 		Gdx.gl.glClearColor(0, 0, 0, 0);
@@ -96,13 +101,15 @@ public class PlatformerGame implements ApplicationListener {
 		GameState gameState = director.getGameState();
 
 		renderer.render(gameState.getRenderableObjects());
-		
-		//Setup debug camera matrix and render
+
+		// Setup debug camera matrix and render
 		float ratio = director.getPhysicsSystem().getRatio();
 		debugMatrix = new Matrix4(camera.combined);
 		debugMatrix.scale(1 / ratio, 1 / ratio, 1f);
-		//debugRenderer.render(director.getPhysicsSystem().getWorld(), debugMatrix);
-		
+		// debugRenderer.render(director.getPhysicsSystem().getWorld(),
+		// debugMatrix);
+		debugRenderer.render(director.getPhysicsSystem().getWorld(),
+				debugMatrix);
 		gameState.cleanUp();
 	}
 

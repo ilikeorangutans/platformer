@@ -12,6 +12,8 @@ public interface Renderer {
 
 	void initialize(Camera camera);
 
+	void finish();
+
 	void render(Renderable renderable);
 
 }

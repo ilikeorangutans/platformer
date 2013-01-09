@@ -6,8 +6,6 @@ import platformer.core.renderer.Renderer;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector3;
 
 public class DummyCircleRenderer implements Renderer {
 
@@ -24,7 +22,7 @@ public class DummyCircleRenderer implements Renderer {
 		renderer.setColor(1, 0, 0, 1);
 		renderer.filledCircle(renderable.getPosition().x,
 				renderable.getPosition().y, renderable.getBounds().width / 2);
-		
+
 		renderer.end();
 
 	}
@@ -32,6 +30,10 @@ public class DummyCircleRenderer implements Renderer {
 	@Override
 	public void initialize(Camera camera) {
 		renderer.setProjectionMatrix(camera.combined);
+	}
+
+	@Override
+	public void finish() {
 	}
 
 }

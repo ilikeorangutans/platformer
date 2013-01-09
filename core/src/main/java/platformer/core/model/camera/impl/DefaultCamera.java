@@ -1,11 +1,9 @@
 package platformer.core.model.camera.impl;
 
 import platformer.core.model.Camera;
-import platformer.core.model.GameObject;
 import platformer.core.model.systems.Positionable;
 import platformer.core.model.systems.Simulatable;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector3;
 

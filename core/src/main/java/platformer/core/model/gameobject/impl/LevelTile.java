@@ -1,45 +1,35 @@
 package platformer.core.model.gameobject.impl;
 
-import java.awt.geom.RectangularShape;
-
 import platformer.core.model.GameObject;
 import platformer.core.model.systems.Positionable;
 import platformer.core.model.systems.Simulatable;
 import platformer.core.renderer.Renderable;
+import platformer.core.renderer.RendererInstructions;
+import platformer.core.renderer.impl.StaticTextureRenderInstructions;
 
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
 
 public class LevelTile implements GameObject, Positionable, Renderable,
 		Simulatable {
 
 	private Vector3 position;
 	private final Rectangle bounds;
-	private ShapeRenderer renderer;
 	private Body body;
+	private RendererInstructions rendererInstructions;
 
 	public LevelTile(Vector3 position, Rectangle bounds, Body body) {
+		this(position, bounds, body, "grass_single");
+	}
+
+	public LevelTile(Vector3 position, Rectangle bounds, Body body,
+			String textureName) {
 		this.position = position;
 		this.bounds = bounds;
 		this.body = body;
-	}
-
-	@Override
-	public Vector3 getPosition() {
-		return position;
-	}
-
-	@Override
-	public Rectangle getBounds() {
-		return bounds;
+		this.rendererInstructions = new StaticTextureRenderInstructions(
+				textureName);
 	}
 
 	@Override
@@ -52,18 +42,13 @@ public class LevelTile implements GameObject, Positionable, Renderable,
 	}
 
 	@Override
+	public Rectangle getBounds() {
+		return bounds;
+	}
+
+	@Override
 	public String getId() {
 		return null;
-	}
-
-	@Override
-	public String getTextureName() {
-		return "grass";
-	}
-
-	@Override
-	public void move(Vector3 vector) {
-		
 	}
 
 	@Override
@@ -72,8 +57,18 @@ public class LevelTile implements GameObject, Positionable, Renderable,
 	}
 
 	@Override
-	public void setPosition(Vector3 position) {
-		this.position = position;
+	public Vector3 getPosition() {
+		return position;
+	}
+
+	@Override
+	public RendererInstructions getRendererInstructions() {
+		return rendererInstructions;
+	}
+
+	@Override
+	public String getTextureName() {
+		return "grass";
 	}
 
 	@Override
@@ -82,7 +77,17 @@ public class LevelTile implements GameObject, Positionable, Renderable,
 	}
 
 	@Override
+	public void move(Vector3 vector) {
+
+	}
+
+	@Override
 	public void setIsGrounded(boolean bool) {
 		return;
+	}
+
+	@Override
+	public void setPosition(Vector3 position) {
+		this.position = position;
 	}
 }

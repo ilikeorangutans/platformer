@@ -35,4 +35,8 @@ public class DummyRectanleRenderer implements Renderer {
 		renderer.setProjectionMatrix(camera.combined);
 	}
 
+	@Override
+	public void finish() {
+	}
+
 }

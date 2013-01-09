@@ -11,4 +11,12 @@ public interface Renderable extends Positionable {
 	 */
 	String getTextureName();
 
+	/**
+	 * Returns the {@link RendererInstructions} to be used for rendering this
+	 * object.
+	 * 
+	 * @return
+	 */
+	RendererInstructions getRendererInstructions();
+
 }
