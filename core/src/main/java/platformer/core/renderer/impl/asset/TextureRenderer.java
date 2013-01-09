@@ -26,7 +26,7 @@ public class TextureRenderer implements Renderer {
 				.getRendererInstructions();
 
 		final String textureName = instructions.getTextureName();
-		final Texture texture = assetManager.get("../assets/" + textureName
+		final Texture texture = assetManager.get("assets/" + textureName
 				+ ".png", Texture.class);
 
 		spriteBatch.draw(texture, renderable.getPosition().x,

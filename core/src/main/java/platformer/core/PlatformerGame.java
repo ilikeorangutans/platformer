@@ -50,8 +50,8 @@ public class PlatformerGame implements ApplicationListener {
 	@Override
 	public void create() {
 		assetManager = new AssetManager();
-		assetManager.load("../assets/grass_single.png", Texture.class);
-		assetManager.load("../assets/stickman.png", Texture.class);
+		assetManager.load("assets/grass_single.png", Texture.class);
+		assetManager.load("assets/stickman.png", Texture.class);
 
 		Gdx.app.setLogLevel(LOG_LEVEL);
 
