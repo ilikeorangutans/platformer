@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import platformer.core.model.GameObject;
 import platformer.core.model.Level;
 import platformer.core.model.condition.Condition;
+import platformer.core.model.condition.FalseCondition;
 import platformer.core.model.condition.NotCondition;
 import platformer.core.model.condition.PlayerAliveCondition;
 import platformer.core.model.gameobject.impl.LevelTile;
@@ -73,8 +74,7 @@ public class DummyLevel implements Level {
 
 	@Override
 	public Condition getWinningCondition() {
-		// TODO Auto-generated method stub
-		return null;
+		return new FalseCondition();
 	}
 
 	@Override
