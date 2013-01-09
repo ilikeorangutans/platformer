@@ -38,12 +38,22 @@ public class DummyLevel implements Level {
 			Vector3 position = new Vector3(MathUtils.random(100, 2000),
 					MathUtils.random(100, 2000), 0);
 
-			for (int j = 1; j < MathUtils.random(20, 60); j++) {
+			int max = MathUtils.random(20, 60);
+			for (int j = 1; j < max; j++) {
+				String textureName;
+				if (j == 1) {
+					textureName = "grass_left";
+				} else if (j == (max - 1)) {
+					textureName = "grass_right";
+				} else {
+					textureName = "grass_single";
+				}
 				Rectangle bounds = new Rectangle(0, 0, TILE_WIDTH, TILE_WIDTH);
 				position.x = position.x + TILE_WIDTH;
 				Body squareBody = physicsSystem.createBody(
 						Square.class.getName(), position, bounds);
-				gameObjects.add(new LevelTile(position, bounds, squareBody));
+				gameObjects.add(new LevelTile(position, bounds, squareBody,
+						textureName));
 			}
 		}
 	}
