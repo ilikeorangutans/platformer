@@ -3,12 +3,13 @@ package platformer.core.model.systems.impl.physics.bodies;
 import platformer.core.model.systems.PhysicsBody;
 
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class RegularPlayer implements PhysicsBody {
@@ -21,10 +22,10 @@ public class RegularPlayer implements PhysicsBody {
 		body.setFixedRotation(true);
 		body.setBullet(true);
 
-		CircleShape circleShape = new CircleShape();
-		circleShape.setRadius(bounds.width / 2);
+		PolygonShape rectShape = new PolygonShape();
+		rectShape.setAsBox(bounds.width / 4, bounds.height / 2, new Vector2(0, 0), 0);
 
-		Fixture fixture = body.createFixture(circleShape, 1);
+		Fixture fixture = body.createFixture(rectShape, 1);
 		fixture.setRestitution(0);
 		fixture.setFriction(0.1f);
 		
