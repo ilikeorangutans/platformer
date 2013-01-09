@@ -36,6 +36,7 @@ public class DefaultDirector implements Director {
 	private DefaultViewportRender renderer;
 	private Box2DDebugRenderer debugRenderer;
 	private Matrix4 debugMatrix;
+	private Level level;
 
 	public DefaultDirector() {
 		initializeGame();
@@ -44,11 +45,11 @@ public class DefaultDirector implements Director {
 	private void initializeGame() {
 		physicsSystem = new PhysicsSystem();
 		gameState = new GameStateImpl();
-		Level level = new DummyLevel();
+		level = new DummyLevel();
 		camera = new DefaultCamera();
 		debugRenderer = new Box2DDebugRenderer();
 		assetManager = new AssetManager();
-		
+
 		assetManager.load("assets/grass_single.png", Texture.class);
 		assetManager.load("assets/grass_left.png", Texture.class);
 		assetManager.load("assets/grass_right.png", Texture.class);
@@ -67,7 +68,7 @@ public class DefaultDirector implements Director {
 				camera);
 		debugRenderer.setDrawVelocities(true);
 
-		//Add player and follow
+		// Add player and follow
 		Vector3 testPosition = new Vector3(100, 100, 0);
 		Rectangle testBound = new Rectangle(0, 0, 64, 64);
 		ExampleGameObject object = new ExampleGameObject(testPosition,
@@ -85,11 +86,17 @@ public class DefaultDirector implements Director {
 			Gdx.app.debug("asset loading", "loading assets");
 			return;
 		}
-		
 		// execute and wipe
 		applyCommands();
 		gameState.update();
-		physicsSystem.update(gameState.getSimulatableObjects());		
+		physicsSystem.update(gameState.getSimulatableObjects());
+
+		if (level.getWinningCondition().isMet(gameState)) {
+			// HORRAY, YOU WON!!
+		} else if (level.getLosingCondition().isMet(gameState)) {
+			// BOOOOOOO
+		}
+
 		renderer.render(gameState.getRenderableObjects());
 		debugRender();
 
@@ -105,7 +112,7 @@ public class DefaultDirector implements Director {
 
 	private void applyCommands() {
 		addCommand(inputHandler.readInput());
-		
+
 		Object object;
 
 		// apply commands to target objects
@@ -117,8 +124,7 @@ public class DefaultDirector implements Director {
 			}
 			command.execute(object);
 		}
-		
-		commandList.clear();
+
 	}
 
 	@Override

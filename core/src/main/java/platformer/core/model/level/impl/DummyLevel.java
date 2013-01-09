@@ -5,6 +5,10 @@ import java.util.LinkedList;
 
 import platformer.core.model.GameObject;
 import platformer.core.model.Level;
+import platformer.core.model.condition.Condition;
+import platformer.core.model.condition.FalseCondition;
+import platformer.core.model.condition.NotCondition;
+import platformer.core.model.condition.PlayerAliveCondition;
 import platformer.core.model.gameobject.impl.LevelTile;
 import platformer.core.model.systems.impl.physics.PhysicsSystem;
 import platformer.core.model.systems.impl.physics.bodies.Square;
@@ -66,6 +70,16 @@ public class DummyLevel implements Level {
 	@Override
 	public Vector2 getGravity() {
 		return new Vector2(0, -9.8f);
+	}
+
+	@Override
+	public Condition getWinningCondition() {
+		return new FalseCondition();
+	}
+
+	@Override
+	public Condition getLosingCondition() {
+		return new NotCondition(new PlayerAliveCondition("player"));
 	}
 
 }

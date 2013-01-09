@@ -8,13 +8,8 @@ import platformer.core.model.Level;
 import platformer.core.model.Player;
 import platformer.core.model.ViewportRender;
 import platformer.core.model.camera.impl.DefaultCamera;
-import platformer.core.model.command.Command;
 import platformer.core.model.director.impl.DefaultDirector;
-import platformer.core.model.inputhandler.impl.DefaultInputHandler;
-import platformer.core.model.systems.Positionable;
-import platformer.core.model.viewportrender.impl.DefaultViewportRender;
 import platformer.core.renderer.RendererFactory;
-import platformer.core.renderer.impl.asset.AssetRendererFactory;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationListener;
@@ -25,7 +20,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.utils.Array;
 
 public class PlatformerGame implements ApplicationListener {
 	Texture texture;
@@ -64,7 +58,7 @@ public class PlatformerGame implements ApplicationListener {
 		// Clear screen to black
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		
+
 		director.update();
 	}
 
