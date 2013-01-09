@@ -50,6 +50,8 @@ public class DefaultDirector implements Director {
 		assetManager = new AssetManager();
 		
 		assetManager.load("assets/grass_single.png", Texture.class);
+		assetManager.load("assets/grass_left.png", Texture.class);
+		assetManager.load("assets/grass_right.png", Texture.class);
 		assetManager.load("assets/stickman.png", Texture.class);
 		rendererFactory = new AssetRendererFactory(assetManager);// = new
 																	// DummyRendererFactory();
