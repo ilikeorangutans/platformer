@@ -98,9 +98,10 @@ public class PhysicsSystem implements GenericSystem {
 
 			// Update position
 			Vector2 position = curBody.getPosition();
+			Rectangle bounds = simulatable.getBounds();
 			simulatable.setPosition(new Vector3(
-					convertMetersToPixels(position.x),
-					convertMetersToPixels(position.y), 0));
+					convertMetersToPixels(position.x) - (bounds.width / 2),
+					convertMetersToPixels(position.y) - (bounds.height / 2), 0));
 
 			if (curBody.getType() != BodyType.StaticBody) {
 				simulatable.setIsGrounded(checkIfIsGrounded(simulatable));
