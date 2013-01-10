@@ -17,6 +17,7 @@ public class ExampleGameObject implements GameObject, Simulatable, Renderable {
 	private Body body;
 	private boolean isGrounded;
 	private RendererInstructions rendererInstructions;
+	private boolean state = false;
 
 	public ExampleGameObject(Vector3 position, Rectangle bounds, Body body) {
 		this.position = position;
@@ -98,6 +99,16 @@ public class ExampleGameObject implements GameObject, Simulatable, Renderable {
 	@Override
 	public void setPosition(Vector3 position) {
 		this.position = position;
+	}
+
+	@Override
+	public boolean isActive() {
+		return state;
+	}
+
+	@Override
+	public void setIsActive(boolean state) {
+		this.state = state;
 	}
 
 }

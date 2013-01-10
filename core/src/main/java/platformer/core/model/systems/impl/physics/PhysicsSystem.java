@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 
 import platformer.core.model.GameObject;
+import platformer.core.model.systems.Cullable;
 import platformer.core.model.systems.GenericSystem;
 import platformer.core.model.systems.PhysicsBody;
 import platformer.core.model.systems.Simulatable;
@@ -28,7 +29,7 @@ public class PhysicsSystem implements GenericSystem {
 
 	public PhysicsSystem() {
 	}
-	
+
 	public void initialize(Vector2 gravity) {
 		world = new World(gravity, true);
 	}
@@ -96,39 +97,48 @@ public class PhysicsSystem implements GenericSystem {
 	@Override
 	public void update(Collection<GameObject> list) {
 		for (GameObject gameObject : list) {
+			Cullable cullable = (Cullable) gameObject;
+			if (!cullable.isActive()) {
+				continue;
+			}
+
 			Simulatable simulatable = (Simulatable) gameObject;
 			Body curBody = simulatable.getPhysicsBody();
 
 			// Update position
 			Vector2 position = curBody.getPosition();
 			Rectangle bounds = simulatable.getBounds();
-			simulatable.setPosition(new Vector3(
-					convertMetersToPixels(position.x) - (bounds.width / 2),
-					convertMetersToPixels(position.y) - (bounds.height / 2), 0));
+			simulatable
+					.setPosition(new Vector3(convertMetersToPixels(position.x)
+							- (bounds.width / 2),
+							convertMetersToPixels(position.y)
+									- (bounds.height / 2), 0));
 
 			if (curBody.getType() != BodyType.StaticBody) {
 				simulatable.setIsGrounded(checkIfIsGrounded(simulatable));
 			}
 		}
 
-		//world.step(Gdx.graphics.getDeltaTime(), 8, 3);
-		world.step(1f / 45, 8, 3); //fixed time is recommended
+		// world.step(Gdx.graphics.getDeltaTime(), 8, 3);
+		world.step(1f / 45, 8, 3); // fixed time is recommended
 	}
 
 	private boolean checkIfIsGrounded(Simulatable simulatable) {
 		Body body = simulatable.getPhysicsBody();
-		
+
 		isCurrentObjectGrounded = false;
 		fixtureCount = 0;
 
 		Vector2 pos = body.getWorldCenter();
 		Rectangle bounds = simulatable.getBounds();
-		bounds = new Rectangle(0, 0, convertPixelsToMeters(bounds.width), convertPixelsToMeters(bounds.height));
+		bounds = new Rectangle(0, 0, convertPixelsToMeters(bounds.width),
+				convertPixelsToMeters(bounds.height));
 
 		// Don't forget, x/y are center to the object
 		float leftBottomX = pos.x;
-		float leftBottomY = pos.y - (bounds.height / 2) - convertPixelsToMeters(1); // Test 2 pixels
-																// under
+		float leftBottomY = pos.y - (bounds.height / 2)
+				- convertPixelsToMeters(1); // Test 2 pixels
+		// under
 		float topRightX = pos.x;
 		float topRightY = pos.y - (bounds.height / 2);
 
@@ -142,10 +152,12 @@ public class PhysicsSystem implements GenericSystem {
 				return true;
 			}
 		}, leftBottomX, leftBottomY, topRightX, topRightY);
-		
-		//If the object is not on a fixture let's double check that is' not stuck
-		isCurrentObjectGrounded = isCurrentObjectGrounded ? isCurrentObjectGrounded : body.getLinearVelocity().y == 0;
-		
+
+		// If the object is not on a fixture let's double check that is' not
+		// stuck
+		isCurrentObjectGrounded = isCurrentObjectGrounded ? isCurrentObjectGrounded
+				: body.getLinearVelocity().y == 0;
+
 		return isCurrentObjectGrounded;
 	}
 

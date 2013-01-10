@@ -10,6 +10,7 @@ import java.util.TreeMap;
 import platformer.core.model.GameObject;
 import platformer.core.model.GameState;
 import platformer.core.model.Level;
+import platformer.core.model.systems.Cullable;
 import platformer.core.model.systems.Simulatable;
 import platformer.core.renderer.Renderable;
 
@@ -33,6 +34,8 @@ public class GameStateImpl implements GameState {
 
 	private Collection<GameObject> simulatableObjects = new LinkedList<GameObject>();
 
+	private Collection<GameObject> cullableObjects = new LinkedList<GameObject>();
+
 	public void addGameObject(GameObject gameObject) {
 		gameObjects.add(gameObject);
 
@@ -48,6 +51,10 @@ public class GameStateImpl implements GameState {
 
 		if (gameObject instanceof Simulatable) {
 			simulatableObjects.add(gameObject);
+		}
+
+		if (gameObject instanceof Cullable) {
+			cullableObjects.add(gameObject);
 		}
 	}
 
@@ -96,6 +103,11 @@ public class GameStateImpl implements GameState {
 	@Override
 	public Collection<GameObject> getSimulatableObjects() {
 		return simulatableObjects;
+	}
+
+	@Override
+	public Collection<GameObject> getCullableObjects() {
+		return cullableObjects ;
 	}
 
 }

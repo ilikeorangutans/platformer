@@ -18,6 +18,7 @@ public class LevelTile implements GameObject, Positionable, Renderable,
 	private final Rectangle bounds;
 	private Body body;
 	private RendererInstructions rendererInstructions;
+	private boolean state = false;
 
 	public LevelTile(Vector3 position, Rectangle bounds, Body body) {
 		this(position, bounds, body, "grass_single");
@@ -89,5 +90,15 @@ public class LevelTile implements GameObject, Positionable, Renderable,
 	@Override
 	public void setPosition(Vector3 position) {
 		this.position = position;
+	}
+
+	@Override
+	public boolean isActive() {
+		return state;
+	}
+
+	@Override
+	public void setIsActive(boolean state) {
+		this.state  = state;
 	}
 }

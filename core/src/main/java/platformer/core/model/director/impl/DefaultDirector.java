@@ -10,6 +10,7 @@ import platformer.core.model.gamestate.impl.GameStateImpl;
 import platformer.core.model.inputhandler.impl.DefaultInputHandler;
 import platformer.core.model.level.impl.DummyLevel;
 import platformer.core.model.systems.Positionable;
+import platformer.core.model.systems.impl.physics.CullingSystem;
 import platformer.core.model.systems.impl.physics.PhysicsSystem;
 import platformer.core.model.systems.impl.physics.bodies.RegularPlayer;
 import platformer.core.model.viewportrender.impl.DefaultViewportRender;
@@ -37,6 +38,7 @@ public class DefaultDirector implements Director {
 	private Box2DDebugRenderer debugRenderer;
 	private Matrix4 debugMatrix;
 	private Level level;
+	private CullingSystem cullingSystem;
 
 	public DefaultDirector() {
 		initializeGame();
@@ -49,6 +51,7 @@ public class DefaultDirector implements Director {
 		camera = new DefaultCamera();
 		debugRenderer = new Box2DDebugRenderer();
 		assetManager = new AssetManager();
+		cullingSystem = new CullingSystem(camera);
 
 		assetManager.load("assets/grass_single.png", Texture.class);
 		assetManager.load("assets/grass_left.png", Texture.class);
@@ -89,6 +92,9 @@ public class DefaultDirector implements Director {
 		// execute and wipe
 		applyCommands();
 		gameState.update();
+		
+		cullingSystem.update(gameState.getCullableObjects());
+		
 		physicsSystem.update(gameState.getSimulatableObjects());
 
 		if (level.getWinningCondition().isMet(gameState)) {

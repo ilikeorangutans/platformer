@@ -1,5 +1,6 @@
 package platformer.core.renderer.impl.asset;
 
+import platformer.core.model.systems.Cullable;
 import platformer.core.renderer.Renderable;
 import platformer.core.renderer.Renderer;
 import platformer.core.renderer.RendererInstructions;
@@ -22,6 +23,10 @@ public class TextureRenderer implements Renderer {
 
 	@Override
 	public void render(Renderable renderable) {
+		if (!((Cullable) renderable).isActive()){
+			return;
+		}
+		
 		final RendererInstructions instructions = renderable
 				.getRendererInstructions();
 
