@@ -17,7 +17,7 @@ public class CullingSystem implements GenericSystem {
 
 	private Camera view;
 	private Rectangle viewportBounds;
-	private final float EXTRA_SCREEN_TIMES = 1.5f; // All around, keep that in
+	private final float EXTRA_SCREEN_TIMES = 0.5f; // All around, keep that in
 												// mind.
 
 	public CullingSystem(Camera view) {
@@ -37,10 +37,12 @@ public class CullingSystem implements GenericSystem {
 				- (viewportBounds.height * EXTRA_SCREEN_TIMES);
 		
 		if (EXTRA_SCREEN_TIMES != 0) {
-			viewportBounds.width *= EXTRA_SCREEN_TIMES * 2;
-			viewportBounds.height *= EXTRA_SCREEN_TIMES * 2;
+			viewportBounds.width += viewportBounds.width * EXTRA_SCREEN_TIMES * 2;
+			viewportBounds.height += viewportBounds.width * EXTRA_SCREEN_TIMES * 2;
 		}
 
+		int count = 0;
+		
 		for (GameObject gameObject : list) {
 			Vector3 position = new Vector3(((Positionable) gameObject).getPosition());
 			
@@ -48,9 +50,15 @@ public class CullingSystem implements GenericSystem {
 					&& position.y >= viewportBounds.y
 					&& position.x <= viewportBounds.x + viewportBounds.width
 					&& position.y <= viewportBounds.y + viewportBounds.height;
+					
+			if (fitsInRenderArea) {
+				count++;
+			}
 
 			((Cullable) gameObject).setIsActive(fitsInRenderArea);
 		}
+		
+		//Gdx.app.log("visible bodies", "" + count);
 	}
 
 }

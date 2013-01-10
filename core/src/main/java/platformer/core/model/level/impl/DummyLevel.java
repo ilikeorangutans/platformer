@@ -29,7 +29,7 @@ public class DummyLevel implements Level {
 	}
 
 	public void initialize(PhysicsSystem physicsSystem) {
-		for (int i = 0; i < 200; i++) {
+		for (int i = 0; i < 10000; i++) {
 			Vector3 position = new Vector3(i * TILE_WIDTH, 0, 0);
 			Rectangle bounds = new Rectangle(0, 0, TILE_WIDTH, TILE_WIDTH);
 			Body squareBody = physicsSystem.createBody(Square.class.getName(),
@@ -38,11 +38,11 @@ public class DummyLevel implements Level {
 		}
 
 		// Generate some platforms
-		for (int i = 0; i < 500; i++) {
-			Vector3 position = new Vector3(MathUtils.random(100, 5000),
-					MathUtils.random(100, 5000), 0);
+		for (int i = 0; i < 1000; i++) {
+			Vector3 position = new Vector3(MathUtils.random(100, 10000),
+					MathUtils.random(100, 10000), 0);
 
-			int max = MathUtils.random(10, 30);
+			int max = MathUtils.random(10, 20);
 			for (int j = 1; j < max; j++) {
 				String textureName;
 				if (j == 1) {
