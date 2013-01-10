@@ -63,11 +63,6 @@ public class ExampleGameObject implements GameObject, Simulatable, Renderable {
 	}
 
 	@Override
-	public String getTextureName() {
-		return null;
-	}
-
-	@Override
 	public boolean isGrounded() {
 		return isGrounded;
 	}

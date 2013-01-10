@@ -68,11 +68,6 @@ public class LevelTile implements GameObject, Positionable, Renderable,
 	}
 
 	@Override
-	public String getTextureName() {
-		return "grass";
-	}
-
-	@Override
 	public boolean isGrounded() {
 		return true;
 	}
@@ -99,6 +94,6 @@ public class LevelTile implements GameObject, Positionable, Renderable,
 
 	@Override
 	public void setIsActive(boolean state) {
-		this.state  = state;
+		this.state = state;
 	}
 }
