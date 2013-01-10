@@ -64,6 +64,7 @@ public class GameStateImpl implements GameState {
 			go.dispose();
 			gameObjects.remove(go);
 			renderableObjects.remove(go);
+			cullableObjects.remove(go);
 		}
 
 		toRemove.clear();
@@ -107,7 +108,7 @@ public class GameStateImpl implements GameState {
 
 	@Override
 	public Collection<GameObject> getCullableObjects() {
-		return cullableObjects ;
+		return cullableObjects;
 	}
 
 }
