@@ -97,13 +97,16 @@ public class PhysicsSystem implements GenericSystem {
 	@Override
 	public void update(Collection<GameObject> list) {
 		for (GameObject gameObject : list) {
-			Cullable cullable = (Cullable) gameObject;
-			if (!cullable.isActive()) {
-				continue;
-			}
-
 			Simulatable simulatable = (Simulatable) gameObject;
 			Body curBody = simulatable.getPhysicsBody();
+			Cullable cullable = (Cullable) gameObject;
+			
+			if (!cullable.isActive()) {
+				curBody.setAwake(false);
+				continue;
+			}
+			
+			curBody.setAwake(true);
 
 			// Update position
 			Vector2 position = curBody.getPosition();

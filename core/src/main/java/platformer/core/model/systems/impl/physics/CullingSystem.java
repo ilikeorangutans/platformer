@@ -41,18 +41,9 @@ public class CullingSystem implements GenericSystem {
 			viewportBounds.height *= EXTRA_SCREEN_TIMES * 2;
 		}
 
-//		Gdx.app.log("wtf", "x:" + viewportBounds.x + ", y:" + viewportBounds.y
-//				+ ", w: " + viewportBounds.width + ", h: "
-//				+ viewportBounds.height);
-
 		for (GameObject gameObject : list) {
 			Vector3 position = new Vector3(((Positionable) gameObject).getPosition());
 			
-			if (gameObject.getId() == "player") {
-				Gdx.app.log("xxx", position.x + " ::: " + viewportBounds.x);
-//				Gdx.app.log("xxx",
-//						String.valueOf(position.y >= viewportBounds.y));
-			}
 			boolean fitsInRenderArea = position.x >= viewportBounds.x
 					&& position.y >= viewportBounds.y
 					&& position.x <= viewportBounds.x + viewportBounds.width

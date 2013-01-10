@@ -38,11 +38,11 @@ public class DummyLevel implements Level {
 		}
 
 		// Generate some platforms
-		for (int i = 0; i < 30; i++) {
-			Vector3 position = new Vector3(MathUtils.random(100, 2000),
-					MathUtils.random(100, 2000), 0);
+		for (int i = 0; i < 500; i++) {
+			Vector3 position = new Vector3(MathUtils.random(100, 5000),
+					MathUtils.random(100, 5000), 0);
 
-			int max = MathUtils.random(20, 60);
+			int max = MathUtils.random(10, 30);
 			for (int j = 1; j < max; j++) {
 				String textureName;
 				if (j == 1) {

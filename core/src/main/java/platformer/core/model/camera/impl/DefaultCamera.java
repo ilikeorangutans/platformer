@@ -74,7 +74,6 @@ public class DefaultCamera extends OrthographicCamera implements Camera {
 
 	@Override
 	public Rectangle getViewportBounds() {
-		Gdx.app.log("WTF", "" + this.position.x);
 		return new Rectangle(this.position.x - (this.viewportWidth / 2),
 				this.position.y - (this.viewportHeight / 2),
 				this.viewportWidth, this.viewportHeight);
