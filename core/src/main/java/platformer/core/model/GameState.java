@@ -37,7 +37,7 @@ public interface GameState extends Iterable<GameObject> {
 	Collection<GameObject> getSimulatableObjects();
 
 	Collection<GameObject> getCullableObjects();
-	
+
 	void initialize(Level level);
 
 	/**
@@ -46,4 +46,6 @@ public interface GameState extends Iterable<GameObject> {
 	 * @param inputState
 	 */
 	void update();
+
+	Collection<GameObject> getActiveObjects();
 }

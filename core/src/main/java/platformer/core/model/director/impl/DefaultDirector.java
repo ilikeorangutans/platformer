@@ -14,7 +14,9 @@ import platformer.core.model.systems.impl.physics.CullingSystem;
 import platformer.core.model.systems.impl.physics.PhysicsSystem;
 import platformer.core.model.systems.impl.physics.bodies.RegularPlayer;
 import platformer.core.model.viewportrender.impl.DefaultViewportRender;
+import platformer.core.renderer.RenderSet;
 import platformer.core.renderer.RendererFactory;
+import platformer.core.renderer.impl.SimpleRenderSet;
 import platformer.core.renderer.impl.asset.AssetRendererFactory;
 
 import com.badlogic.gdx.Gdx;
@@ -39,6 +41,7 @@ public class DefaultDirector implements Director {
 	private Matrix4 debugMatrix;
 	private Level level;
 	private CullingSystem cullingSystem;
+	private RenderSet renderSet;
 
 	public DefaultDirector() {
 		initializeGame();
@@ -52,11 +55,13 @@ public class DefaultDirector implements Director {
 		debugRenderer = new Box2DDebugRenderer();
 		assetManager = new AssetManager();
 		cullingSystem = new CullingSystem(camera);
+		renderSet = new SimpleRenderSet();
 
 		assetManager.load("assets/grass_single.png", Texture.class);
 		assetManager.load("assets/grass_left.png", Texture.class);
 		assetManager.load("assets/grass_right.png", Texture.class);
 		assetManager.load("assets/stickman.png", Texture.class);
+		assetManager.load("assets/clouds.png", Texture.class);
 		rendererFactory = new AssetRendererFactory(assetManager);// = new
 																	// DummyRendererFactory();
 		camera.setToOrtho(false, 800, 600);
@@ -92,9 +97,9 @@ public class DefaultDirector implements Director {
 		// execute and wipe
 		applyCommands();
 		gameState.update();
-		
+
 		cullingSystem.update(gameState.getCullableObjects());
-		
+
 		physicsSystem.update(gameState.getSimulatableObjects());
 
 		if (level.getWinningCondition().isMet(gameState)) {
@@ -104,7 +109,7 @@ public class DefaultDirector implements Director {
 		}
 
 		renderer.render(gameState.getRenderableObjects());
-//		debugRender();
+		// debugRender();
 
 		gameState.cleanUp();
 	}
@@ -130,7 +135,7 @@ public class DefaultDirector implements Director {
 			}
 			command.execute(object);
 		}
-		
+
 		commandList.clear();
 	}
 

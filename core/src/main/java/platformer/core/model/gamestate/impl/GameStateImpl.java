@@ -1,10 +1,14 @@
 package platformer.core.model.gamestate.impl;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.Set;
 import java.util.TreeMap;
 
 import platformer.core.model.GameObject;
@@ -35,6 +39,20 @@ public class GameStateImpl implements GameState {
 	private Collection<GameObject> simulatableObjects = new LinkedList<GameObject>();
 
 	private Collection<GameObject> cullableObjects = new LinkedList<GameObject>();
+
+	private final Queue<Cullable> activeObjects = new PriorityQueue<Cullable>(
+			50, new Comparator<Cullable>() {
+				@Override
+				public int compare(Cullable o1, Cullable o2) {
+					if (o1.isActive() && o2.isActive())
+						return 0;
+
+					if (o1.isActive() && !o2.isActive()) {
+						return -1;
+					}
+					return 0;
+				}
+			});
 
 	public void addGameObject(GameObject gameObject) {
 		gameObjects.add(gameObject);
@@ -111,4 +129,8 @@ public class GameStateImpl implements GameState {
 		return cullableObjects;
 	}
 
+	@Override
+	public Collection<GameObject> getActiveObjects() {
+		return null;
+	}
 }

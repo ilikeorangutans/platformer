@@ -1,11 +1,9 @@
 package platformer.core.model;
 
-import java.util.Collection;
-
-import platformer.core.renderer.Renderable;
+import platformer.core.renderer.RenderSet;
 
 public interface ViewportRender {
 
-	void render(Collection<Renderable> renderableObjects);
+	void render(RenderSet renderSet);
 
 }

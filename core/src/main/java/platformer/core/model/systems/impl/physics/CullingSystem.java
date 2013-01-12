@@ -8,8 +8,6 @@ import platformer.core.model.systems.Cullable;
 import platformer.core.model.systems.GenericSystem;
 import platformer.core.model.systems.Positionable;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 

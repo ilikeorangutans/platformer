@@ -12,6 +12,7 @@ import platformer.core.model.condition.PlayerAliveCondition;
 import platformer.core.model.gameobject.impl.LevelTile;
 import platformer.core.model.systems.impl.physics.PhysicsSystem;
 import platformer.core.model.systems.impl.physics.bodies.Square;
+import platformer.core.renderer.impl.StaticBackgroundPlane;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
@@ -29,6 +30,9 @@ public class DummyLevel implements Level {
 	}
 
 	public void initialize(PhysicsSystem physicsSystem) {
+
+		gameObjects.add(new StaticBackgroundPlane());
+
 		for (int i = 0; i < 10000; i++) {
 			Vector3 position = new Vector3(i * TILE_WIDTH, 0, 0);
 			Rectangle bounds = new Rectangle(0, 0, TILE_WIDTH, TILE_WIDTH);

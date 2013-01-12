@@ -1,8 +1,7 @@
 package platformer.core.model.viewportrender.impl;
 
-import java.util.Collection;
-
 import platformer.core.model.ViewportRender;
+import platformer.core.renderer.RenderSet;
 import platformer.core.renderer.Renderable;
 import platformer.core.renderer.Renderer;
 import platformer.core.renderer.RendererFactory;
@@ -23,11 +22,11 @@ public class DefaultViewportRender implements ViewportRender {
 	}
 
 	@Override
-	public void render(Collection<Renderable> renderableObjects) {
+	public void render(RenderSet renderSet) {
 		camera.update();
 
 		Renderer lastRenderer = null;
-		for (Renderable renderable : renderableObjects) {
+		for (Renderable renderable : renderSet) {
 
 			final Renderer renderer = rendererFactory.findRenderer(renderable
 					.getClass());
