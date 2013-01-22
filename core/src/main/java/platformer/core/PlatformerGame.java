@@ -6,10 +6,10 @@ import platformer.core.model.GameState;
 import platformer.core.model.InputHandler;
 import platformer.core.model.Level;
 import platformer.core.model.Player;
-import platformer.core.model.ViewportRender;
 import platformer.core.model.camera.impl.DefaultCamera;
 import platformer.core.model.director.impl.DefaultDirector;
 import platformer.core.renderer.RendererFactory;
+import platformer.core.renderer.viewport.ViewportRenderer;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationListener;
@@ -29,7 +29,7 @@ public class PlatformerGame implements ApplicationListener {
 	private Director director;
 	private Player player;
 	private GameState gameState;
-	private ViewportRender renderer;
+	private ViewportRenderer renderer;
 	private DefaultCamera camera;
 	private Box2DDebugRenderer debugRenderer;
 
