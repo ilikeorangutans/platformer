@@ -1,7 +1,7 @@
-package platformer.core.model.viewportrender.impl;
+package platformer.core.renderer.viewport;
 
-import platformer.core.model.ViewportRender;
-import platformer.core.renderer.RenderSet;
+import java.util.Collection;
+
 import platformer.core.renderer.Renderable;
 import platformer.core.renderer.Renderer;
 import platformer.core.renderer.RendererFactory;
@@ -9,7 +9,7 @@ import platformer.core.renderer.RendererFactory;
 import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.graphics.Camera;
 
-public class DefaultViewportRender implements ViewportRender {
+public class DefaultViewportRender implements ViewportRenderer {
 	private final Graphics graphics;
 	private final Camera camera;
 	private final RendererFactory rendererFactory;
@@ -22,7 +22,7 @@ public class DefaultViewportRender implements ViewportRender {
 	}
 
 	@Override
-	public void render(RenderSet renderSet) {
+	public void render(Collection<Renderable> renderSet) {
 		camera.update();
 
 		Renderer lastRenderer = null;
