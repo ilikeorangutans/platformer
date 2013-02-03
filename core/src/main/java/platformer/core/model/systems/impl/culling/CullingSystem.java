@@ -1,4 +1,4 @@
-package platformer.core.model.systems.impl.physics;
+package platformer.core.model.systems.impl.culling;
 
 import java.util.Collection;
 

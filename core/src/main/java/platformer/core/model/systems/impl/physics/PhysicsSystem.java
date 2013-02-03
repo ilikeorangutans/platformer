@@ -41,7 +41,7 @@ public class PhysicsSystem implements GenericSystem {
 		try {
 
 			construct = Class.forName(bodyName).getConstructor();
-			Object newInstance = construct.newInstance(null);
+			Object newInstance = construct.newInstance();
 			body = ((PhysicsBody) newInstance).create(world,
 					convertVectorToMeters(position), new Rectangle(0, 0,
 							convertPixelsToMeters(bounds.width),
@@ -100,12 +100,12 @@ public class PhysicsSystem implements GenericSystem {
 			Simulatable simulatable = (Simulatable) gameObject;
 			Body curBody = simulatable.getPhysicsBody();
 			Cullable cullable = (Cullable) gameObject;
-			
+
 			if (!cullable.isActive()) {
 				curBody.setAwake(false);
 				continue;
 			}
-			
+
 			curBody.setAwake(true);
 
 			// Update position
