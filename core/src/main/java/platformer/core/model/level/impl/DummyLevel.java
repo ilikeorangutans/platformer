@@ -12,7 +12,6 @@ import platformer.core.model.condition.PlayerAliveCondition;
 import platformer.core.model.gameobject.impl.LevelTile;
 import platformer.core.model.systems.impl.physics.PhysicsSystem;
 import platformer.core.model.systems.impl.physics.bodies.Square;
-import platformer.core.renderer.impl.StaticBackgroundPlane;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
@@ -31,20 +30,16 @@ public class DummyLevel implements Level {
 
 	public void initialize(PhysicsSystem physicsSystem) {
 
-		gameObjects.add(new StaticBackgroundPlane());
-
 		for (int i = 0; i < 10000; i++) {
 			Vector3 position = new Vector3(i * TILE_WIDTH, 0, 0);
 			Rectangle bounds = new Rectangle(0, 0, TILE_WIDTH, TILE_WIDTH);
-			Body squareBody = physicsSystem.createBody(Square.class.getName(),
-					position, bounds);
+			Body squareBody = physicsSystem.createBody(Square.class.getName(), position, bounds);
 			gameObjects.add(new LevelTile(position, bounds, squareBody));
 		}
 
 		// Generate some platforms
 		for (int i = 0; i < 1000; i++) {
-			Vector3 position = new Vector3(MathUtils.random(100, 10000),
-					MathUtils.random(100, 10000), 0);
+			Vector3 position = new Vector3(MathUtils.random(100, 10000), MathUtils.random(100, 10000), 0);
 
 			int max = MathUtils.random(10, 20);
 			for (int j = 1; j < max; j++) {
@@ -58,10 +53,8 @@ public class DummyLevel implements Level {
 				}
 				Rectangle bounds = new Rectangle(0, 0, TILE_WIDTH, TILE_WIDTH);
 				position.x = position.x + TILE_WIDTH;
-				Body squareBody = physicsSystem.createBody(
-						Square.class.getName(), position, bounds);
-				gameObjects.add(new LevelTile(position, bounds, squareBody,
-						textureName));
+				Body squareBody = physicsSystem.createBody(Square.class.getName(), position, bounds);
+				gameObjects.add(new LevelTile(position, bounds, squareBody, textureName));
 			}
 		}
 
