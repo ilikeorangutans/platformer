@@ -4,6 +4,12 @@ import java.util.Collection;
 
 import platformer.core.renderer.Renderable;
 
+/**
+ * Acts as a registry and directory for all {@link GameObject}s.
+ * 
+ * @author Jakob Külzer
+ * 
+ */
 public interface GameState extends Iterable<GameObject> {
 
 	/**

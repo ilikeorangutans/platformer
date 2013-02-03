@@ -41,11 +41,9 @@ public class PhysicsSystem implements GenericSystem {
 		try {
 
 			construct = Class.forName(bodyName).getConstructor();
-			Object newInstance = construct.newInstance();
-			body = ((PhysicsBody) newInstance).create(world,
-					convertVectorToMeters(position), new Rectangle(0, 0,
-							convertPixelsToMeters(bounds.width),
-							convertPixelsToMeters(bounds.height)));
+			Object newInstance = construct.newInstance(null);
+			body = ((PhysicsBody) newInstance).create(world, convertVectorToMeters(position), new Rectangle(0, 0, convertPixelsToMeters(bounds.width),
+					convertPixelsToMeters(bounds.height)));
 
 		} catch (NoSuchMethodException e) {
 			Gdx.app.log("PhysicsBodyFactory", "No method found", e);
@@ -83,15 +81,11 @@ public class PhysicsSystem implements GenericSystem {
 	}
 
 	public Vector3 convertVectorToMeters(Vector3 vector) {
-		return new Vector3(convertPixelsToMeters(vector.x),
-				convertPixelsToMeters(vector.y),
-				convertPixelsToMeters(vector.z));
+		return new Vector3(convertPixelsToMeters(vector.x), convertPixelsToMeters(vector.y), convertPixelsToMeters(vector.z));
 	}
 
 	public Vector3 convertVectorToPixels(Vector3 vector) {
-		return new Vector3(convertMetersToPixels(vector.x),
-				convertMetersToPixels(vector.y),
-				convertMetersToPixels(vector.z));
+		return new Vector3(convertMetersToPixels(vector.x), convertMetersToPixels(vector.y), convertMetersToPixels(vector.z));
 	}
 
 	@Override
@@ -111,11 +105,8 @@ public class PhysicsSystem implements GenericSystem {
 			// Update position
 			Vector2 position = curBody.getPosition();
 			Rectangle bounds = simulatable.getBounds();
-			simulatable
-					.setPosition(new Vector3(convertMetersToPixels(position.x)
-							- (bounds.width / 2),
-							convertMetersToPixels(position.y)
-									- (bounds.height / 2), 0));
+			simulatable.setPosition(new Vector3(convertMetersToPixels(position.x) - (bounds.width / 2),
+					convertMetersToPixels(position.y) - (bounds.height / 2), 0));
 
 			if (curBody.getType() != BodyType.StaticBody) {
 				simulatable.setIsGrounded(checkIfIsGrounded(simulatable));
@@ -134,13 +125,13 @@ public class PhysicsSystem implements GenericSystem {
 
 		Vector2 pos = body.getWorldCenter();
 		Rectangle bounds = simulatable.getBounds();
-		bounds = new Rectangle(0, 0, convertPixelsToMeters(bounds.width),
-				convertPixelsToMeters(bounds.height));
+		bounds = new Rectangle(0, 0, convertPixelsToMeters(bounds.width), convertPixelsToMeters(bounds.height));
 
 		// Don't forget, x/y are center to the object
 		float leftBottomX = pos.x;
-		float leftBottomY = pos.y - (bounds.height / 2)
-				- convertPixelsToMeters(1); // Test 2 pixels
+		float leftBottomY = pos.y - (bounds.height / 2) - convertPixelsToMeters(1); // Test
+																					// 2
+																					// pixels
 		// under
 		float topRightX = pos.x;
 		float topRightY = pos.y - (bounds.height / 2);
@@ -158,8 +149,7 @@ public class PhysicsSystem implements GenericSystem {
 
 		// If the object is not on a fixture let's double check that is' not
 		// stuck
-		isCurrentObjectGrounded = isCurrentObjectGrounded ? isCurrentObjectGrounded
-				: body.getLinearVelocity().y == 0;
+		isCurrentObjectGrounded = isCurrentObjectGrounded ? isCurrentObjectGrounded : body.getLinearVelocity().y == 0;
 
 		return isCurrentObjectGrounded;
 	}
