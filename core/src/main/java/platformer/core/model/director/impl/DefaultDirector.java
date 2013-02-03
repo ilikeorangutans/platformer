@@ -10,7 +10,7 @@ import platformer.core.model.gamestate.impl.GameStateImpl;
 import platformer.core.model.inputhandler.impl.DefaultInputHandler;
 import platformer.core.model.level.impl.DummyLevel;
 import platformer.core.model.systems.Positionable;
-import platformer.core.model.systems.impl.physics.CullingSystem;
+import platformer.core.model.systems.impl.culling.CullingSystem;
 import platformer.core.model.systems.impl.physics.PhysicsSystem;
 import platformer.core.model.systems.impl.physics.bodies.RegularPlayer;
 import platformer.core.renderer.RendererFactory;
