@@ -28,7 +28,7 @@ public class BackgroundCloudRenderer implements Renderer {
 	public void render(Renderable renderable) {
 
 		final float z = renderable.getPosition().z;
-		final float cameraDeltaX = (cameraPosition.x - renderable.getPosition().x) / (z * 5);
+		final float cameraDeltaX = (cameraPosition.x - renderable.getPosition().x) / (z * 10);
 		final float cameraDeltaY = (cameraPosition.y - renderable.getPosition().y) / (z * 5);
 		final float x = renderable.getPosition().x - cameraDeltaX;
 		final float y = renderable.getPosition().y - cameraDeltaY;
