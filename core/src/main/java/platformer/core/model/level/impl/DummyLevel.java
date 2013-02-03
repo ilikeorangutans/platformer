@@ -10,6 +10,7 @@ import platformer.core.model.condition.FalseCondition;
 import platformer.core.model.condition.NotCondition;
 import platformer.core.model.condition.PlayerAliveCondition;
 import platformer.core.model.gameobject.impl.LevelTile;
+import platformer.core.model.gameobject.impl.background.Cloud;
 import platformer.core.model.systems.impl.physics.PhysicsSystem;
 import platformer.core.model.systems.impl.physics.bodies.Square;
 
@@ -29,6 +30,13 @@ public class DummyLevel implements Level {
 	}
 
 	public void initialize(PhysicsSystem physicsSystem) {
+
+		// Weather forecast: cloudy
+		for (int i = 0; i < 200; i++) {
+			Vector3 position = new Vector3(MathUtils.random(0, 2048), MathUtils.random(0, 2048), MathUtils.random(1, 4));
+
+			gameObjects.add(new Cloud(position));
+		}
 
 		for (int i = 0; i < 10000; i++) {
 			Vector3 position = new Vector3(i * TILE_WIDTH, 0, 0);
