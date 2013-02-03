@@ -1,8 +1,8 @@
 package platformer.core.renderer.impl.dummy;
 
-import platformer.core.renderer.Renderable;
 import platformer.core.renderer.Renderer;
 import platformer.core.renderer.RendererFactory;
+import platformer.core.renderer.RendererInstructions;
 
 import com.badlogic.gdx.graphics.Color;
 
@@ -18,7 +18,7 @@ public class DummyRendererFactory implements RendererFactory {
 	}
 
 	@Override
-	public Renderer findRenderer(Class<? extends Renderable> clazz) {
+	public Renderer findRenderer(RendererInstructions instructions) {
 		return circleRenderer;
 	}
 

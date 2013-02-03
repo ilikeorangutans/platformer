@@ -39,6 +39,7 @@ public class DefaultDirector implements Director {
 	private Matrix4 debugMatrix;
 	private Level level;
 	private CullingSystem cullingSystem;
+	private ExampleGameObject playerObject;
 
 	public DefaultDirector() {
 		initializeGame();
@@ -68,20 +69,17 @@ public class DefaultDirector implements Director {
 		level.initialize(physicsSystem); // REFACTOR
 		gameState.initialize(level);
 
-		renderer = new DefaultViewportRender(rendererFactory, Gdx.graphics,
-				camera);
+		renderer = new DefaultViewportRender(rendererFactory, Gdx.graphics, camera);
 		debugRenderer.setDrawVelocities(true);
 
 		// Add player and follow
 		Vector3 testPosition = new Vector3(100, 100, 0);
 		Rectangle testBound = new Rectangle(0, 0, 64, 64);
-		ExampleGameObject object = new ExampleGameObject(testPosition,
-				testBound, physicsSystem.createBody(
-						RegularPlayer.class.getName(), testPosition, testBound));
 
-		gameState.addGameObject(object);
-		camera.setTarget((Positionable) getGameState().findGameObjectById(
-				"player"));
+		playerObject = new ExampleGameObject(testPosition, testBound, physicsSystem.createBody(RegularPlayer.class.getName(), testPosition, testBound));
+
+		gameState.addGameObject(playerObject);
+		camera.setTarget((Positionable) getGameState().findGameObjectById("player"));
 
 	}
 
@@ -90,13 +88,15 @@ public class DefaultDirector implements Director {
 			Gdx.app.debug("asset loading", "loading assets");
 			return;
 		}
+
 		// execute and wipe
 		applyCommands();
 		gameState.update();
 
 		cullingSystem.update(gameState.getCullableObjects());
-
 		physicsSystem.update(gameState.getSimulatableObjects());
+
+		renderer.renderBackground(playerObject);
 
 		if (level.getWinningCondition().isMet(gameState)) {
 			// HORRAY, YOU WON!!
