@@ -9,8 +9,8 @@ import platformer.core.model.gameobject.impl.ExampleGameObject;
 import platformer.core.model.gamestate.impl.GameStateImpl;
 import platformer.core.model.inputhandler.impl.DefaultInputHandler;
 import platformer.core.model.level.impl.DummyLevel;
+import platformer.core.model.level.impl.TestDummyLevel;
 import platformer.core.model.systems.Positionable;
-import platformer.core.model.systems.impl.culling.CullingSystem;
 import platformer.core.model.systems.impl.physics.PhysicsSystem;
 import platformer.core.model.systems.impl.physics.bodies.RegularPlayer;
 import platformer.core.renderer.RendererFactory;
@@ -38,7 +38,6 @@ public class DefaultDirector implements Director {
 	private Box2DDebugRenderer debugRenderer;
 	private Matrix4 debugMatrix;
 	private Level level;
-	private CullingSystem cullingSystem;
 	private ExampleGameObject playerObject;
 
 	public DefaultDirector() {
@@ -52,7 +51,6 @@ public class DefaultDirector implements Director {
 		camera = new DefaultCamera();
 		debugRenderer = new Box2DDebugRenderer();
 		assetManager = new AssetManager();
-		cullingSystem = new CullingSystem(camera);
 
 		assetManager.load("assets/grass_single.png", Texture.class);
 		assetManager.load("assets/grass_left.png", Texture.class);
@@ -66,7 +64,7 @@ public class DefaultDirector implements Director {
 		Gdx.input.setInputProcessor(inputHandler);
 
 		physicsSystem.initialize(level.getGravity());
-		level.initialize(physicsSystem); // REFACTOR
+		level.initialize(physicsSystem);
 		gameState.initialize(level);
 
 		renderer = new DefaultViewportRender(rendererFactory, Gdx.graphics, camera);
@@ -91,10 +89,9 @@ public class DefaultDirector implements Director {
 
 		// execute and wipe
 		applyCommands();
-		gameState.update();
+		gameState.update(camera.getViewportBounds());
 
-		cullingSystem.update(gameState.getCullableObjects());
-		physicsSystem.update(gameState.getSimulatableObjects());
+		physicsSystem.update(gameState.getSimulatableObjects(camera.getViewportBounds()));
 
 		renderer.renderBackground(playerObject);
 
@@ -104,8 +101,8 @@ public class DefaultDirector implements Director {
 			// BOOOOOOO
 		}
 
-		renderer.render(gameState.getRenderableObjects());
-		// debugRender();
+		renderer.render(gameState.getRenderableObjects(camera.getViewportBounds()));
+		//debugRender();
 
 		gameState.cleanUp();
 	}

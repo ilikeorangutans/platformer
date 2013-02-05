@@ -2,6 +2,10 @@ package platformer.core.model;
 
 import java.util.Collection;
 
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.Array;
+
+import platformer.core.model.systems.Simulatable;
 import platformer.core.renderer.Renderable;
 
 /**
@@ -38,20 +42,20 @@ public interface GameState extends Iterable<GameObject> {
 	 * 
 	 * @return
 	 */
-	Collection<Renderable> getRenderableObjects();
-
-	Collection<GameObject> getSimulatableObjects();
-
-	Collection<GameObject> getCullableObjects();
 
 	void initialize(Level level);
 
 	/**
 	 * Updates the gamestate with input.
+	 * @param rectangle 
 	 * 
 	 * @param inputState
 	 */
-	void update();
+	void update(Rectangle rectangle);
 
 	Collection<GameObject> getActiveObjects();
+
+	Array<Simulatable> getSimulatableObjects(Rectangle aabb);
+	
+	Array<Renderable> getRenderableObjects(Rectangle aabb);
 }

@@ -1,7 +1,6 @@
 package platformer.core.renderer.viewport;
 
-import java.util.Collection;
-
+import platformer.core.model.GameObject;
 import platformer.core.model.systems.Positionable;
 import platformer.core.renderer.Renderable;
 import platformer.core.renderer.Renderer;
@@ -11,6 +10,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.utils.Array;
 
 public class DefaultViewportRender implements ViewportRenderer {
 	private final Graphics graphics;
@@ -24,12 +24,11 @@ public class DefaultViewportRender implements ViewportRenderer {
 	}
 
 	@Override
-	public void render(Collection<Renderable> renderSet) {
+	public void render(Array<Renderable> renderSet) {
 		camera.update();
 
 		Renderer lastRenderer = null;
 		for (Renderable renderable : renderSet) {
-
 			final Renderer renderer = rendererFactory.findRenderer(renderable.getRendererInstructions());
 			final boolean newRenderer = lastRenderer != null && lastRenderer != renderer;
 			final boolean firstRenderer = lastRenderer == null;
@@ -39,6 +38,9 @@ public class DefaultViewportRender implements ViewportRenderer {
 			}
 
 			renderer.render(renderable);
+			if("player".equals(((GameObject) renderable).getId())){
+				Gdx.app.log("player", "being rendered");
+			}
 
 			if (newRenderer) {
 				// Finish with the old renderer:

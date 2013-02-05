@@ -16,5 +16,8 @@ public interface SpatialIndex<T extends Positionable> {
 	Array<T> getObjects(Rectangle aabb);
 
 	//Get all objects in a cell
-	Array<T> getObjects(Vector2 cell);
+	Array<T> getObjects(int cell);
+	
+	//
+	void updateObjects(Rectangle aabb);
 }

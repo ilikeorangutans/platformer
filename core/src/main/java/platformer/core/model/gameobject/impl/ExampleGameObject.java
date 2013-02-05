@@ -95,15 +95,4 @@ public class ExampleGameObject implements GameObject, Simulatable, Renderable {
 	public void setPosition(Vector3 position) {
 		this.position = position;
 	}
-
-	@Override
-	public boolean isActive() {
-		return state;
-	}
-
-	@Override
-	public void setIsActive(boolean state) {
-		this.state = state;
-	}
-
 }

@@ -18,6 +18,7 @@ public class Cloud implements GameObject, Renderable {
 
 	public Cloud(Vector3 position) {
 		this.position = position;
+		this.bounds = new Rectangle(0, 0, 100, 150);
 		rendererInstructions = new BackgroundCloudRendererInstructions();
 	}
 
@@ -48,17 +49,6 @@ public class Cloud implements GameObject, Renderable {
 	@Override
 	public RendererInstructions getRendererInstructions() {
 		return rendererInstructions;
-	}
-
-	@Override
-	public boolean isActive() {
-		return active;
-	}
-
-	@Override
-	public void setIsActive(boolean state) {
-		active = state;
-
 	}
 
 	@Override

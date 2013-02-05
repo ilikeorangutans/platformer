@@ -1,24 +1,29 @@
 package platformer.core.model.systems.impl.culling;
 
-import platformer.core.model.GameObject;
-
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.ObjectMap;
+import com.badlogic.gdx.utils.IntMap;
 
-public class SpatialIndexMap<T> extends ObjectMap<Vector2, Array<T>> {
+public class SpatialIndexMap<T> extends IntMap<Array<T>> {
 
-	public SpatialIndexMap(int numberOfBuckets) {
-		super(numberOfBuckets);
+	public Array<T> get(int key) {
+		Array<T> cell = super.get(key);
+
+		if (cell == null) {
+			cell = new Array<T>();
+			super.put(key, cell);
+		}
+
+		return cell;
 	}
-
-	public void put(Vector2 key, T object) {
-		Array<T> backingArray = super.get(key);
+	
+	public void add(int key, T object) {
+		Array<T> backingArray = get(key);
 		
 		if (backingArray.contains(object, true)) {
 			return;
 		}
-		
+
 		backingArray.add(object);
 	}
 

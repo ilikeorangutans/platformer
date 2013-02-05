@@ -2,10 +2,7 @@ package platformer.core.model.systems.impl.physics;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Collection;
 
-import platformer.core.model.GameObject;
-import platformer.core.model.systems.Cullable;
 import platformer.core.model.systems.GenericSystem;
 import platformer.core.model.systems.PhysicsBody;
 import platformer.core.model.systems.Simulatable;
@@ -19,8 +16,9 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.QueryCallback;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 
-public class PhysicsSystem implements GenericSystem {
+public class PhysicsSystem implements GenericSystem<Simulatable> {
 	World world;
 	private boolean isCurrentObjectGrounded;
 	private int fixtureCount;
@@ -39,9 +37,8 @@ public class PhysicsSystem implements GenericSystem {
 
 		Constructor construct;
 		try {
-
 			construct = Class.forName(bodyName).getConstructor();
-			Object newInstance = construct.newInstance(null);
+			Object newInstance = construct.newInstance();
 			body = ((PhysicsBody) newInstance).create(world, convertVectorToMeters(position), new Rectangle(0, 0, convertPixelsToMeters(bounds.width),
 					convertPixelsToMeters(bounds.height)));
 
@@ -89,18 +86,9 @@ public class PhysicsSystem implements GenericSystem {
 	}
 
 	@Override
-	public void update(Collection<GameObject> list) {
-		for (GameObject gameObject : list) {
-			Simulatable simulatable = (Simulatable) gameObject;
+	public void update(Array<Simulatable> array) {		
+		for (Simulatable simulatable : array) {
 			Body curBody = simulatable.getPhysicsBody();
-			Cullable cullable = (Cullable) gameObject;
-
-			if (!cullable.isActive()) {
-				curBody.setAwake(false);
-				continue;
-			}
-
-			curBody.setAwake(true);
 
 			// Update position
 			Vector2 position = curBody.getPosition();
