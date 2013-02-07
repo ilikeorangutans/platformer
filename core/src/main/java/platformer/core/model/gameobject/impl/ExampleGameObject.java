@@ -4,6 +4,7 @@ import platformer.core.model.GameObject;
 import platformer.core.model.systems.Simulatable;
 import platformer.core.renderer.Renderable;
 import platformer.core.renderer.RendererInstructions;
+import platformer.core.renderer.impl.PlayerRendererInstructions;
 import platformer.core.renderer.impl.StaticTextureRenderInstructions;
 
 import com.badlogic.gdx.math.Rectangle;
@@ -23,8 +24,7 @@ public class ExampleGameObject implements GameObject, Simulatable, Renderable {
 		this.position = position;
 		this.bounds = bounds;
 		this.body = body;
-		this.rendererInstructions = new StaticTextureRenderInstructions(
-				"stickman");
+		this.rendererInstructions = new PlayerRendererInstructions();
 	}
 
 	@Override
