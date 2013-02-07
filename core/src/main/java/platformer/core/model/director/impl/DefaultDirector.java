@@ -5,7 +5,7 @@ import platformer.core.model.GameState;
 import platformer.core.model.Level;
 import platformer.core.model.camera.impl.DefaultCamera;
 import platformer.core.model.command.Command;
-import platformer.core.model.gameobject.impl.ExampleGameObject;
+import platformer.core.model.gameobject.impl.Player;
 import platformer.core.model.gamestate.impl.GameStateImpl;
 import platformer.core.model.inputhandler.impl.DefaultInputHandler;
 import platformer.core.model.level.impl.DummyLevel;
@@ -39,7 +39,7 @@ public class DefaultDirector implements Director {
 	private Box2DDebugRenderer debugRenderer;
 	private Matrix4 debugMatrix;
 	private Level level;
-	private ExampleGameObject playerObject;
+	private Player playerObject;
 
 	public DefaultDirector() {
 		initializeGame();
@@ -74,9 +74,9 @@ public class DefaultDirector implements Director {
 
 		// Add player and follow
 		Vector3 testPosition = new Vector3(100, 100, 100);
-		Rectangle testBound = new Rectangle(0, 0, 85, 102);
+		Rectangle testBound = new Rectangle(0, 0, 64, 64);
 
-		playerObject = new ExampleGameObject(testPosition, testBound, physicsSystem.createBody(RegularPlayer.class.getName(), testPosition, testBound));
+		playerObject = new Player(testPosition, testBound, physicsSystem.createBody(RegularPlayer.class.getName(), testPosition, testBound));
 
 		gameState.addGameObject(playerObject);
 		camera.setTarget((Positionable) getGameState().findGameObjectById("player"));

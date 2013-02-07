@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 
-public class ExampleGameObject implements GameObject, Simulatable, Renderable {
+public class Player implements GameObject, Simulatable, Renderable {
 	private Vector3 position;
 	private Rectangle bounds;
 	private Body body;
@@ -20,7 +20,7 @@ public class ExampleGameObject implements GameObject, Simulatable, Renderable {
 	private RendererInstructions rendererInstructions;
 	private boolean state = false;
 
-	public ExampleGameObject(Vector3 position, Rectangle bounds, Body body) {
+	public Player(Vector3 position, Rectangle bounds, Body body) {
 		this.position = position;
 		this.bounds = bounds;
 		this.body = body;
