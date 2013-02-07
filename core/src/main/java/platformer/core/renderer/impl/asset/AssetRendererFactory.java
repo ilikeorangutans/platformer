@@ -15,7 +15,7 @@ public class AssetRendererFactory implements RendererFactory {
 
 	public AssetRendererFactory(AssetManager assetManager) {
 		renderer = new TextureRenderer(assetManager);
-		backgroundCloudRenderer = new BackgroundCloudRenderer();
+		backgroundCloudRenderer = new BackgroundCloudRenderer(assetManager);
 	}
 
 	@Override

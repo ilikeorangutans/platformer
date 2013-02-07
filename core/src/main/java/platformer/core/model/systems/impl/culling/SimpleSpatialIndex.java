@@ -14,9 +14,7 @@ import com.badlogic.gdx.utils.IntArray;
 public class SimpleSpatialIndex<T extends Positionable> implements SpatialIndex<T> {
 	private int cellSize;
 	private SpatialIndexMap<T> cellMap;
-	private float conversionFactor;
-	private int width;
-
+	
 	/**
 	 * The constructor requires both the cellSize (usually enough to fit a
 	 * regular object bounding box) and width required for projecting a spatial
@@ -26,10 +24,8 @@ public class SimpleSpatialIndex<T extends Positionable> implements SpatialIndex<
 	 * @param cellSize
 	 * @param initialWidth
 	 */
-	public SimpleSpatialIndex(int cellSize, int width) {
+	public SimpleSpatialIndex(int cellSize) {
 		this.cellSize = cellSize;
-		this.width = width / cellSize;
-		this.conversionFactor = 1f / cellSize;
 		cellMap = new SpatialIndexMap<T>();
 	}
 
@@ -48,11 +44,7 @@ public class SimpleSpatialIndex<T extends Positionable> implements SpatialIndex<
 			Rectangle objBounds = obj.getBounds();
 			Rectangle boundingBox = new Rectangle(objPos.x, objPos.y, objBounds.width, objBounds.height);
 
-			IntArray affectedCells = getAffectedCells(boundingBox);
-			
-			if("player".equals(((GameObject) obj).getId())){
-				Gdx.app.log("player", affectedCells.toString());
-			}
+			Array<IntArray> affectedCells = getAffectedCells(boundingBox);
 
 			for (int i = 0; i < affectedCells.size; i++) {
 				cellMap.add(affectedCells.get(i), object);
@@ -62,10 +54,11 @@ public class SimpleSpatialIndex<T extends Positionable> implements SpatialIndex<
 		}
 	}
 
-	private int hashPoint(Vector2 point) {
-		int gridCell;
+	private Vector2 getBucketId(Vector2 point) {
+		Vector2 gridCell = new Vector2();
 
-		gridCell = (int) (point.x * conversionFactor + point.y * conversionFactor * width);
+		gridCell.x = (point.x - (point.x % cellSize)) / cellSize;
+		gridCell.y = (point.y - (point.y % cellSize)) / cellSize;
 
 		return gridCell;
 	}
@@ -78,21 +71,15 @@ public class SimpleSpatialIndex<T extends Positionable> implements SpatialIndex<
 	 * @param aabb
 	 * @return Array<Vector2>
 	 */
-	private IntArray getAffectedCells(Rectangle aabb) {
-		IntArray affectedCells = new IntArray();
+	private Array<IntArray> getAffectedCells(Rectangle aabb) {
+		Array<IntArray> affectedCells = new Array<IntArray>(2);
 
-		Vector2 frustrumMinPoint = new Vector2(aabb.x, aabb.y);
-		Vector2 frustrumMaxPoint = new Vector2(aabb.x + aabb.width, aabb.y + aabb.height);
+		Vector2 frustrumMinPoint = getBucketId(new Vector2(aabb.x - 100, aabb.y - 100));
+		Vector2 frustrumMaxPoint = getBucketId(new Vector2(aabb.x + aabb.width + 100, aabb.y + aabb.height + 100));
 
-		int minX = (int) (frustrumMinPoint.x * conversionFactor);
-		int minY = (int) (frustrumMinPoint.y * conversionFactor);
-
-		int maxX = (int) (frustrumMaxPoint.x * conversionFactor);
-		int maxY = (int) (frustrumMaxPoint.y * conversionFactor);
-
-		for (int i = minX; i <= maxX; i++) {
-			for (int j = minY; j <= maxY; j++) {
-				affectedCells.add(i * width + j);
+		for (int x = (int) frustrumMinPoint.x; x <= frustrumMaxPoint.x; x++) {
+			for (int y = (int) frustrumMinPoint.y; y <= frustrumMaxPoint.y; y++) {
+				affectedCells.add(new IntArray(new int[]{x, y}));
 			}
 		}
 
@@ -100,13 +87,8 @@ public class SimpleSpatialIndex<T extends Positionable> implements SpatialIndex<
 	}
 
 	@Override
-	public Array<T> getObjects(int cell) {
-		return cellMap.get(cell);
-	}
-
-	@Override
 	public Array<T> getObjects(Rectangle aabb) {
-		IntArray affectedCells = getAffectedCells(aabb);
+		Array<IntArray> affectedCells = getAffectedCells(aabb);
 		Array<T> objects = new Array<T>();
 
 		for (int i = 0; i < affectedCells.size; i++) {
@@ -123,7 +105,7 @@ public class SimpleSpatialIndex<T extends Positionable> implements SpatialIndex<
 	}
 
 	public void updateObjects(Rectangle aabb) {
-		IntArray affectedCells = getAffectedCells(aabb);
+		Array<IntArray> affectedCells = getAffectedCells(aabb);
 		Array<T> objects = new Array<T>(getObjects(aabb));
 
 		for (int i = 0; i < affectedCells.size; i++) {

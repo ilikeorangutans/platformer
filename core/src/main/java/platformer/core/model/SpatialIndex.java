@@ -15,9 +15,6 @@ public interface SpatialIndex<T extends Positionable> {
 	//Get all objects contained within the defined AABB range
 	Array<T> getObjects(Rectangle aabb);
 
-	//Get all objects in a cell
-	Array<T> getObjects(int cell);
-	
 	//
 	void updateObjects(Rectangle aabb);
 }

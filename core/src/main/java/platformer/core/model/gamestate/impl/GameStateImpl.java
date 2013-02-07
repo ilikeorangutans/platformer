@@ -28,12 +28,12 @@ public class GameStateImpl implements GameState {
 	/**
 	 * Keep track of all {@link Renderable} objects.
 	 */
-	private final SpatialIndex<Renderable> renderableObjects = new SimpleSpatialIndex<Renderable>(1024, 10000);
+	private final SpatialIndex<Renderable> renderableObjects = new SimpleSpatialIndex<Renderable>(1024);
 
 	/**
 	 * Keep track of all {@link Simulatable} objects.
 	 */
-	private final SpatialIndex<Simulatable> simulatableObjects = new SimpleSpatialIndex<Simulatable>(1024, 10000);
+	private final SpatialIndex<Simulatable> simulatableObjects = new SimpleSpatialIndex<Simulatable>(1024);
 
 	private final List<GameObject> toRemove = new LinkedList<GameObject>();
 	private final Map<String, GameObject> objectsById = new TreeMap<String, GameObject>();

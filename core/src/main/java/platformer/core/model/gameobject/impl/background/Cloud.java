@@ -18,7 +18,7 @@ public class Cloud implements GameObject, Renderable {
 
 	public Cloud(Vector3 position) {
 		this.position = position;
-		this.bounds = new Rectangle(0, 0, 100, 150);
+		this.bounds = new Rectangle(0, 0, 64, 64);
 		rendererInstructions = new BackgroundCloudRendererInstructions();
 	}
 

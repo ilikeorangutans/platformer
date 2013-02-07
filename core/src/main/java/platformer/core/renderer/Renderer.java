@@ -1,6 +1,7 @@
 package platformer.core.renderer;
 
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
  * Renders a single {@link Renderable} object.
@@ -10,7 +11,7 @@ import com.badlogic.gdx.graphics.Camera;
  */
 public interface Renderer {
 
-	void initialize(Camera camera);
+	void initialize(Camera camera, SpriteBatch batch);
 
 	void finish();
 

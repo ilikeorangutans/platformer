@@ -1,5 +1,7 @@
 package platformer.core.renderer.viewport;
 
+import java.util.Comparator;
+
 import platformer.core.model.GameObject;
 import platformer.core.model.systems.Positionable;
 import platformer.core.renderer.Renderable;
@@ -10,6 +12,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 
 public class DefaultViewportRender implements ViewportRenderer {
@@ -26,21 +29,31 @@ public class DefaultViewportRender implements ViewportRenderer {
 	@Override
 	public void render(Array<Renderable> renderSet) {
 		camera.update();
+		
+		renderSet.sort(new Comparator<Renderable>() {
+			@Override
+			public int compare(Renderable a, Renderable b) {
+				float aZ = a.getPosition().z;
+				float bZ = b.getPosition().z;
+				  
+				return aZ > bZ ? -1 : aZ == bZ ? 0 : 1;
+			}
+		});
 
 		Renderer lastRenderer = null;
+		SpriteBatch batch = new SpriteBatch();
+		batch.setProjectionMatrix(camera.combined);
+		batch.begin();
 		for (Renderable renderable : renderSet) {
 			final Renderer renderer = rendererFactory.findRenderer(renderable.getRendererInstructions());
 			final boolean newRenderer = lastRenderer != null && lastRenderer != renderer;
 			final boolean firstRenderer = lastRenderer == null;
 
 			if (firstRenderer || newRenderer) {
-				renderer.initialize(camera);
+				renderer.initialize(camera, batch);
 			}
 
 			renderer.render(renderable);
-			if("player".equals(((GameObject) renderable).getId())){
-				Gdx.app.log("player", "being rendered");
-			}
 
 			if (newRenderer) {
 				// Finish with the old renderer:
@@ -49,6 +62,7 @@ public class DefaultViewportRender implements ViewportRenderer {
 
 			lastRenderer = renderer;
 		}
+		batch.end();
 
 		if (lastRenderer != null)
 			lastRenderer.finish();

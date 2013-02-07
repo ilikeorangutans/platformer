@@ -56,7 +56,7 @@ public class DefaultDirector implements Director {
 		assetManager.load("assets/grass_left.png", Texture.class);
 		assetManager.load("assets/grass_right.png", Texture.class);
 		assetManager.load("assets/stickman.png", Texture.class);
-		assetManager.load("assets/clouds.png", Texture.class);
+		assetManager.load("assets/cloud.png", Texture.class);
 		rendererFactory = new AssetRendererFactory(assetManager);// = new
 																	// DummyRendererFactory();
 		camera.setToOrtho(false, 800, 600);
@@ -71,7 +71,7 @@ public class DefaultDirector implements Director {
 		debugRenderer.setDrawVelocities(true);
 
 		// Add player and follow
-		Vector3 testPosition = new Vector3(100, 100, 0);
+		Vector3 testPosition = new Vector3(100, 100, 100);
 		Rectangle testBound = new Rectangle(0, 0, 64, 64);
 
 		playerObject = new ExampleGameObject(testPosition, testBound, physicsSystem.createBody(RegularPlayer.class.getName(), testPosition, testBound));
