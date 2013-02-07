@@ -1,15 +1,11 @@
 package platformer.core.renderer.impl;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
-
-import platformer.core.renderer.RendererInstructions;
 
 public class PlayerRendererInstructions extends AbstractRenderInstructions {
 
 	private final int TOTAL_FRAMES = 16;
-	private final float FRAME_TIME = 1f / TOTAL_FRAMES;
+	private final float FRAME_TIME = 1f / TOTAL_FRAMES / 2;
 	private float timeElapsed = 0;
 
 	@Override
