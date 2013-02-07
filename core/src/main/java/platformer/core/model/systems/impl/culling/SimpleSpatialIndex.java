@@ -107,7 +107,7 @@ public class SimpleSpatialIndex<T extends Positionable> implements SpatialIndex<
 	public void updateObjects(Rectangle aabb) {
 		Array<IntArray> affectedCells = getAffectedCells(aabb);
 		Array<T> objects = new Array<T>(getObjects(aabb));
-
+		
 		for (int i = 0; i < affectedCells.size; i++) {
 			cellMap.remove(affectedCells.get(i));
 		}

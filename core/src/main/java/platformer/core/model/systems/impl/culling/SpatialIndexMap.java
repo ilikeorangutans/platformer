@@ -54,7 +54,7 @@ public class SpatialIndexMap<T> extends IntMap<IntMap<Array<T>>> {
 		if (backingArray.contains(object, true)) {
 			return;
 		}
-
+		
 		backingArray.add(object);
 	}
 

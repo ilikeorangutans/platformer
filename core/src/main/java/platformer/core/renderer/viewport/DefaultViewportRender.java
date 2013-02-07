@@ -63,6 +63,7 @@ public class DefaultViewportRender implements ViewportRenderer {
 			lastRenderer = renderer;
 		}
 		batch.end();
+		batch.dispose();
 
 		if (lastRenderer != null)
 			lastRenderer.finish();
