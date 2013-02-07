@@ -13,7 +13,7 @@ public class StaticBackgroundPlane implements BackgroundPlane {
 	private Vector3 position;
 
 	public StaticBackgroundPlane() {
-		rendererInstructions = new ImmutableRendererInstructions("clouds");
+		//rendererInstructions = new ImmutableRendererInstructions("clouds");
 		bounds = new Rectangle(0, 0, 1024, 768);
 		position = new Vector3(0, 0, -10);
 	}

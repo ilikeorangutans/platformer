@@ -30,16 +30,11 @@ public class BackgroundCloudRenderer extends TextureRenderer{
 		final float cameraDeltaY = (cameraPosition.y - renderable.getPosition().y) / (z * 5);
 		final float x = renderable.getPosition().x - cameraDeltaX;
 		final float y = renderable.getPosition().y - cameraDeltaY;
-		final float scale = 2 / z;
-		final int width = (int) (64 * scale);
-		final int height = (int) (64 * scale);
-		final float small = 0.5f;
-		final float medium = 0.75f;
+		final float scale = 1.5f / z;
+		final int width = (int) (renderable.getBounds().width * scale);
+		final int height = (int) (renderable.getBounds().height * scale);
 
 		render(renderable, x, y, width, height);
-		render(renderable, x - 15, y, width * small, height * small);
-		render(renderable, x + 15, y, width * medium, height * medium);
-		render(renderable, x + 30, y, width * small, height * small);
 	}
 
 }

@@ -4,12 +4,14 @@ import platformer.core.model.GameObject;
 import platformer.core.renderer.Renderable;
 import platformer.core.renderer.Renderer;
 import platformer.core.renderer.RendererInstructions;
+import platformer.core.renderer.impl.AbstractRenderInstructions.TextureType;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 public class TextureRenderer implements Renderer {
 
@@ -35,9 +37,16 @@ public class TextureRenderer implements Renderer {
 		final RendererInstructions instructions = renderable.getRendererInstructions();
 
 		final String textureName = instructions.getTextureName();
-		final Texture texture = assetManager.get("assets/" + textureName + ".png", Texture.class);
-
-		spriteBatch.draw(texture, x, y, width, height);		
+		final TextureType textureType = instructions.getTextureType();
+		
+		if (TextureType.SINGLE == textureType) {
+			final Texture texture = assetManager.get("assets/" + textureName + ".png", Texture.class);
+			spriteBatch.draw(texture, x, y, width, height);		
+		} else {
+			final int frame = instructions.getFrame();
+			final TextureAtlas atlas = assetManager.get("assets/sprites/packed/" + textureName + ".txt", TextureAtlas.class);
+			spriteBatch.draw(atlas.findRegion(instructions.getTextureRegion()), x, y, 0, 0, width, height, 1, 1, 0);
+		}
 	}
 
 	@Override

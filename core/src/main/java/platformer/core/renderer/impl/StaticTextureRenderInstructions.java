@@ -8,7 +8,7 @@ import platformer.core.renderer.RendererInstructions;
  * @author Jakob Külzer
  * 
  */
-public class StaticTextureRenderInstructions implements RendererInstructions {
+public class StaticTextureRenderInstructions extends AbstractRenderInstructions {
 
 	private final String name;
 

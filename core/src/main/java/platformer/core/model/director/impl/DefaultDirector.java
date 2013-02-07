@@ -20,6 +20,7 @@ import platformer.core.renderer.viewport.DefaultViewportRender;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
@@ -56,7 +57,7 @@ public class DefaultDirector implements Director {
 		assetManager.load("assets/grass_left.png", Texture.class);
 		assetManager.load("assets/grass_right.png", Texture.class);
 		assetManager.load("assets/stickman.png", Texture.class);
-		assetManager.load("assets/cloud.png", Texture.class);
+		assetManager.load("assets/sprites/packed/background.txt", TextureAtlas.class);
 		rendererFactory = new AssetRendererFactory(assetManager);// = new
 																	// DummyRendererFactory();
 		camera.setToOrtho(false, 800, 600);

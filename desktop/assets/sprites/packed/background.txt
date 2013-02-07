@@ -1,0 +1,25 @@
+background.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+clouds-2
+  rotate: false
+  xy: 2, 112
+  size: 204, 92
+  orig: 256, 128
+  offset: 23, 17
+  index: -1
+clouds-0
+  rotate: false
+  xy: 2, 2
+  size: 214, 108
+  orig: 256, 128
+  offset: 23, 7
+  index: -1
+clouds-1
+  rotate: false
+  xy: 2, 206
+  size: 172, 90
+  orig: 256, 128
+  offset: 44, 12
+  index: -1

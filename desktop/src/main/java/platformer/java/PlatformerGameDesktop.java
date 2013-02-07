@@ -11,6 +11,7 @@ public class PlatformerGameDesktop {
 		config.useGL20 = true;
 		config.width = 1024;
 		config.height = 768;
+		
 		new LwjglApplication(new PlatformerGame(), config);
 	}
 }
