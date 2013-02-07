@@ -1,19 +1,13 @@
 package platformer.core.model.systems.impl.culling;
 
-import java.util.Hashtable;
-
-import platformer.core.model.GameObject;
 import platformer.core.model.SpatialIndex;
 import platformer.core.model.systems.Positionable;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.IntMap;
-import com.badlogic.gdx.utils.ObjectMap;
 
 public class SimpleSpatialIndex<T extends Positionable> implements SpatialIndex<T> {
 	private int cellSize;
@@ -54,8 +48,8 @@ public class SimpleSpatialIndex<T extends Positionable> implements SpatialIndex<
 			Rectangle objBounds = obj.getBounds();
 			Rectangle boundingBox = new Rectangle(objPos.x, objPos.y, objBounds.width, objBounds.height);
 			Array<Vector2> affectedCells = getAffectedCells(boundingBox);
-			
-			for (Vector2 cellIdx: affectedCells) {
+
+			for (Vector2 cellIdx : affectedCells) {
 				cellMap.put(cellIdx, object);
 			}
 		} else {
@@ -71,7 +65,7 @@ public class SimpleSpatialIndex<T extends Positionable> implements SpatialIndex<
 
 		return gridCell;
 	}
-	
+
 	/**
 	 * Returns an array of cells affected by the AABB query
 	 * 
@@ -102,43 +96,43 @@ public class SimpleSpatialIndex<T extends Positionable> implements SpatialIndex<
 			affectedCells.add(cellBB);
 			affectedCells.add(cellBA);
 		}
-		
+
 		return affectedCells;
 	}
 
 	@Override
 	public Array<T> getObjects(Vector2 cell) {
-		return cellMap.get(cell); 
+		return cellMap.get(cell);
 	}
 
 	@Override
 	public Array<T> getObjects(Rectangle aabb) {
 		Array<Vector2> affectedCells = getAffectedCells(aabb);
-		Array<T> objects = new Array<T>();		
-		
+		Array<T> objects = new Array<T>();
+
 		for (Vector2 cellIdx : affectedCells) {
 			Array<T> currentCell = cellMap.get(cellIdx);
-			
+
 			for (T gameObject : currentCell) {
-				if( !objects.contains(gameObject, true) ) {
+				if (!objects.contains(gameObject, true)) {
 					objects.add(gameObject);
 				}
 			}
 		}
-		
+
 		return objects;
 	}
-	
+
 	public void updateObjects(Rectangle aabb) {
 		Array<Vector2> affectedCells = getAffectedCells(aabb);
 		Array<T> objects = new Array<T>(getObjects(aabb));
-		
+
 		for (Vector2 cellIdx : affectedCells) {
 			cellMap.put(cellIdx, new Array<T>());
 		}
-		
+
 		for (T gameObject : objects) {
 			addObject(gameObject);
-		}		
+		}
 	}
 }
