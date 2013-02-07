@@ -1,38 +1,20 @@
 package platformer.core.model;
 
+import java.util.Set;
+
 import platformer.core.model.systems.Positionable;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
-/**
- * Allows lookup of {@link Positionable} objects based on their position.
- * 
- * @param <T>
- */
 public interface SpatialIndex<T extends Positionable> {
-
-	/**
-	 * Adds new object to the spatial hash
-	 * 
-	 * @param object
-	 */
+	//Adds new object to the spatial hash
 	void addObject(T object);
-
-	/**
-	 * Get all objects contained within the defined AABB range
-	 * 
-	 * @param aabb
-	 * @return
-	 */
+		
+	//Get all objects contained within the defined AABB range
 	Array<T> getObjects(Rectangle aabb);
 
-	/**
-	 * Get all objects in a cell
-	 * 
-	 * @param cell
-	 * @return
-	 */
-	Array<T> getObjects(Vector2 cell);
+	//
+	void updateObjects(Rectangle aabb);
 }

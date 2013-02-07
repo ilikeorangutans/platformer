@@ -2,10 +2,12 @@ package platformer.core.model.systems;
 
 import java.util.Collection;
 
+import com.badlogic.gdx.utils.Array;
+
 import platformer.core.model.GameObject;
 
-public interface GenericSystem {
+public interface GenericSystem<T> {
 
-	void update(Collection<GameObject> list);
-
+	void update(Array<T> list);
+	
 }

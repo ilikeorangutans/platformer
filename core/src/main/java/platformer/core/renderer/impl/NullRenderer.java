@@ -4,6 +4,7 @@ import platformer.core.renderer.Renderable;
 import platformer.core.renderer.Renderer;
 
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
  * Renderer that doesn't do anything.
@@ -20,11 +21,12 @@ public class NullRenderer implements Renderer {
 	}
 
 	@Override
-	public void initialize(Camera camera) {
+	public void finish() {
 	}
 
 	@Override
-	public void finish() {
+	public void initialize(Camera camera, SpriteBatch batch) {
+		
 	}
 
 }

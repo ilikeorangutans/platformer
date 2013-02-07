@@ -6,7 +6,7 @@ public class BackgroundCloudRendererInstructions implements RendererInstructions
 
 	@Override
 	public String getTextureName() {
-		return null;
+		return "cloud";
 	}
 
 }

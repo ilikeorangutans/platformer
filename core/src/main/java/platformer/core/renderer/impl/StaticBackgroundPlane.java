@@ -51,14 +51,4 @@ public class StaticBackgroundPlane implements BackgroundPlane {
 	public Rectangle getBounds() {
 		return bounds;
 	}
-
-	@Override
-	public boolean isActive() {
-		return true;
-	}
-
-	@Override
-	public void setIsActive(boolean state) {
-	}
-
 }
