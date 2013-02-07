@@ -19,10 +19,10 @@ public class DummyCircleRenderer implements Renderer {
 	@Override
 	public void render(Renderable renderable) {
 
-		renderer.begin(ShapeType.FilledCircle);
+		renderer.begin(ShapeType.Filled);
 		renderer.setColor(1, 0, 0, 1);
-		renderer.filledCircle(renderable.getPosition().x,
-				renderable.getPosition().y, renderable.getBounds().width / 2);
+		renderer.circle(renderable.getPosition().x, renderable.getPosition().y,
+				renderable.getBounds().width / 2);
 
 		renderer.end();
 

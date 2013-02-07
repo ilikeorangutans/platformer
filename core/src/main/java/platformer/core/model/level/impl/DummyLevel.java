@@ -32,7 +32,7 @@ public class DummyLevel implements Level {
 	public void initialize(PhysicsSystem physicsSystem) {
 
 		// Weather forecast: cloudy
-		for (int i = 0; i < 1000; i++) {
+		for (int i = 0; i < 3000; i++) {
 			Vector3 position = new Vector3(MathUtils.random(0, 10000), MathUtils.random(0, 10000), MathUtils.random(1, 4));
 			gameObjects.add(new Cloud(position));
 		}

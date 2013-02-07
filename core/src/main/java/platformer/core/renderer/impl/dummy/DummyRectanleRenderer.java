@@ -22,11 +22,10 @@ public class DummyRectanleRenderer implements Renderer {
 	@Override
 	public void render(Renderable renderable) {
 
-		renderer.begin(ShapeType.FilledRectangle);
+		renderer.begin(ShapeType.Filled);
 		renderer.setColor(color);
-		renderer.filledRect(renderable.getPosition().x,
-				renderable.getPosition().y, renderable.getBounds().width,
-				renderable.getBounds().height);
+		renderer.rect(renderable.getPosition().x, renderable.getPosition().y,
+				renderable.getBounds().width, renderable.getBounds().height);
 		renderer.end();
 
 	}

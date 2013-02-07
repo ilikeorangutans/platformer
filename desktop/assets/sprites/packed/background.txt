@@ -1,6 +1,6 @@
 background.png
 format: RGBA8888
-filter: Linear,Linear
+filter: Nearest,Nearest
 repeat: none
 clouds-2
   rotate: false
