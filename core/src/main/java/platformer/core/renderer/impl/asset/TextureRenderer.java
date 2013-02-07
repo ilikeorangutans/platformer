@@ -46,6 +46,7 @@ public class TextureRenderer implements Renderer {
 			final int frame = instructions.getFrame();
 			final TextureAtlas atlas = assetManager.get("assets/sprites/packed/" + textureName + ".txt", TextureAtlas.class);
 			spriteBatch.draw(atlas.findRegion(instructions.getTextureRegion()), x, y, 0, 0, width, height, 1, 1, 0);
+			atlas.dispose();
 		}
 	}
 
