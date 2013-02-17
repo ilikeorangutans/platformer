@@ -1,6 +1,5 @@
 package platformer.core.model.systems.impl.culling;
 
-import platformer.core.model.GameObject;
 import platformer.core.model.SpatialIndex;
 import platformer.core.model.systems.Positionable;
 
@@ -14,7 +13,7 @@ import com.badlogic.gdx.utils.IntArray;
 public class SimpleSpatialIndex<T extends Positionable> implements SpatialIndex<T> {
 	private int cellSize;
 	private SpatialIndexMap<T> cellMap;
-	
+
 	/**
 	 * The constructor requires both the cellSize (usually enough to fit a
 	 * regular object bounding box) and width required for projecting a spatial
@@ -38,24 +37,33 @@ public class SimpleSpatialIndex<T extends Positionable> implements SpatialIndex<
 	 */
 	@Override
 	public void addObject(T object) {
-		if (object instanceof Positionable) {
-			Positionable obj = (Positionable) object;
-			Vector3 objPos = obj.getPosition();
-			Rectangle objBounds = obj.getBounds();
-			Rectangle boundingBox = new Rectangle(objPos.x, objPos.y, objBounds.width, objBounds.height);
-
-			Array<IntArray> affectedCells = getAffectedCells(boundingBox);
-
-			for (int i = 0; i < affectedCells.size; i++) {
-				cellMap.add(affectedCells.get(i), object);
-			}
-		} else {
+		if (!(object instanceof Positionable)) {
 			Gdx.app.error("SimpleSpatialIndex", "Object not added; GameObject is expected to be instance of Positionable");
+			return;
+		}
+
+		final Positionable obj = (Positionable) object;
+		final Vector3 objPos = obj.getPosition();
+		final Rectangle objBounds = obj.getBounds();
+		final Rectangle boundingBox = new Rectangle(objPos.x, objPos.y, objBounds.width, objBounds.height);
+
+		Array<IntArray> affectedCells = getAffectedCells(boundingBox);
+
+		for (int i = 0; i < affectedCells.size; i++) {
+			cellMap.add(affectedCells.get(i), object);
 		}
 	}
 
-	private Vector2 getBucketId(Vector2 point) {
-		Vector2 gridCell = new Vector2();
+	/**
+	 * Returns the bucket coordinates for the given point.
+	 * 
+	 * Numbers smaller than zero will always be thrown into the first bucket.
+	 * 
+	 * @param point
+	 * @return
+	 */
+	public Vector2 getBucketId(Vector2 point) {
+		final Vector2 gridCell = new Vector2();
 
 		gridCell.x = (point.x - (point.x % cellSize)) / cellSize;
 		gridCell.y = (point.y - (point.y % cellSize)) / cellSize;
@@ -64,22 +72,23 @@ public class SimpleSpatialIndex<T extends Positionable> implements SpatialIndex<
 	}
 
 	/**
-	 * Returns an array of cells affected by the AABB query
+	 * Returns an array with the coordinates of cells affected by the given AABB
+	 * query.
 	 * 
 	 * Make sure to dispose of the result once done
 	 * 
 	 * @param aabb
 	 * @return Array<Vector2>
 	 */
-	private Array<IntArray> getAffectedCells(Rectangle aabb) {
-		Array<IntArray> affectedCells = new Array<IntArray>(2);
+	public Array<IntArray> getAffectedCells(Rectangle aabb) {
+		final Array<IntArray> affectedCells = new Array<IntArray>(2);
 
-		Vector2 frustrumMinPoint = getBucketId(new Vector2(aabb.x - 100, aabb.y - 100));
-		Vector2 frustrumMaxPoint = getBucketId(new Vector2(aabb.x + aabb.width + 100, aabb.y + aabb.height + 100));
+		final Vector2 frustrumMinPoint = getBucketId(new Vector2(aabb.x, aabb.y));
+		final Vector2 frustrumMaxPoint = getBucketId(new Vector2(aabb.x + aabb.width, aabb.y + aabb.height));
 
 		for (int x = (int) frustrumMinPoint.x; x <= frustrumMaxPoint.x; x++) {
 			for (int y = (int) frustrumMinPoint.y; y <= frustrumMaxPoint.y; y++) {
-				affectedCells.add(new IntArray(new int[]{x, y}));
+				affectedCells.add(new IntArray(new int[] { x, y }));
 			}
 		}
 
@@ -107,7 +116,7 @@ public class SimpleSpatialIndex<T extends Positionable> implements SpatialIndex<
 	public void updateObjects(Rectangle aabb) {
 		Array<IntArray> affectedCells = getAffectedCells(aabb);
 		Array<T> objects = new Array<T>(getObjects(aabb));
-		
+
 		for (int i = 0; i < affectedCells.size; i++) {
 			cellMap.remove(affectedCells.get(i));
 		}

@@ -1,22 +1,23 @@
 package platformer.core.model.systems.impl.culling;
 
-import platformer.core.model.GameObject;
-
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.IntMap;
 
+/**
+ * Implements buckets of objects of type T. Each bucket is identified by an x
+ * and y value; internally this class organizes all buckets in columns and then
+ * by rows.
+ * 
+ * @param <T>
+ */
 public class SpatialIndexMap<T> extends IntMap<IntMap<Array<T>>> {
-	public SpatialIndexMap() {
-		super();
-
-	}
 
 	public Array<T> get(IntArray coordinates) {
-		int x = coordinates.get(0);
-		int y = coordinates.get(1);
+		return get(coordinates.get(0), coordinates.get(1));
+	}
 
+	public Array<T> get(int x, int y) {
 		IntMap<Array<T>> yCell = get(x);
 
 		if (yCell == null) {
@@ -35,8 +36,10 @@ public class SpatialIndexMap<T> extends IntMap<IntMap<Array<T>>> {
 	}
 
 	public void add(IntArray coordinates, T object) {
-		int x = coordinates.get(0);
-		int y = coordinates.get(1);
+		add(coordinates.get(0), coordinates.get(1), object);
+	}
+
+	public void add(int x, int y, T object) {
 		IntMap<Array<T>> yCell = get(x);
 		Array<T> backingArray;
 
@@ -54,7 +57,7 @@ public class SpatialIndexMap<T> extends IntMap<IntMap<Array<T>>> {
 		if (backingArray.contains(object, true)) {
 			return;
 		}
-		
+
 		backingArray.add(object);
 	}
 
